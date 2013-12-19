@@ -4,9 +4,9 @@ require 'emulators/extra'
 
 module TE3270
 
-  attr_reader :platform
 
-  def initialize
-    @platform = Extra.new
+
+  def platform
+    @platform ||= Extra.new
   end
 end
