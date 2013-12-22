@@ -29,5 +29,11 @@ describe Extra do
       mock_session.should_receive(:Screen).and_return(mock_screen)
       extra.connect
     end
+
+    it 'should disconnect from a session' do
+      mock_session.should_receive(:Close)
+      extra.connect
+      extra.disconnect
+    end
   end
 end

@@ -15,5 +15,8 @@ class Extra
     @screen = session.Screen
   end
 
+  def disconnect
+    session.Close if session
+  end
 
 end
