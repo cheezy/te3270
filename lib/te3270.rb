@@ -1,6 +1,5 @@
 require 'te3270/version'
-require 'win32ole'
-require 'emulators/extra'
+require 'te3270/emulators/extra'
 
 module TE3270
 
