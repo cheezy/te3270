@@ -3,6 +3,7 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'te3270'
 require 'win32ole'
 
+
 def mock_system
   @mock_system ||= double('system')
   @mock_system.stub(:ActiveSession).and_return mock_session
@@ -18,4 +19,6 @@ end
 def mock_screen
   @mock_screen ||= double('screen')
 end
+
+
 

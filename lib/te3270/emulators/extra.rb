@@ -21,6 +21,14 @@ module TE3270
         session.Close if session
       end
 
+      def get_string(row, column, length)
+        screen.GetString(row, column, length)
+      end
+
+      def put_string(str, row, column)
+        screen.PutString(str, row, column)
+      end
+
     end
   end
 end
