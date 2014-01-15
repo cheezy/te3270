@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Extra do
+describe TE3270::Emulators::Extra do
 
-  let(:extra) { Extra.new }
+  let(:extra) { TE3270::Emulators::Extra.new }
 
   describe "global behaviors" do
     before(:each) do
