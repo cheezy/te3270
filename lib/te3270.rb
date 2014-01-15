@@ -5,6 +5,8 @@ require 'te3270/emulators/extra'
 
 module TE3270
 
+  attr_reader :platform
+
   def self.included(cls)
     cls.extend TE3270::Accessors
   end
@@ -13,4 +15,11 @@ module TE3270
     @platform ||= Extra.new
   end
 
+  def connect
+    platform.connect
+  end
+
+  def disconnect
+    platform.disconnect
+  end
 end
