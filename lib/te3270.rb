@@ -1,5 +1,6 @@
 require 'te3270/version'
 require 'te3270/accessors'
+require 'te3270/screen_factory'
 require 'te3270/emulators/extra'
 
 module TE3270
