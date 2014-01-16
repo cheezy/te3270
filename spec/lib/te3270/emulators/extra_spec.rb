@@ -64,5 +64,12 @@ describe TE3270::Emulators::Extra do
       extra.connect
       extra.wait_for_string('The String')
     end
+
+    it 'should wait for the host to be quiet' do
+      mock_screen.should_receive(:WaitHostQuiet).with(4)
+      extra.connect
+      extra.wait_for_host(4)
+    end
+
   end
 end

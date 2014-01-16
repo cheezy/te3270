@@ -40,4 +40,14 @@ describe TE3270 do
     platform.should_receive(:wait_for_string).with('The String')
     screen_object.wait_for_string('The String')
   end
+
+  it 'should use the platform to wait for the host to be quiet' do
+    platform.should_receive(:wait_for_host).with(4)
+    screen_object.wait_for_host(4)
+  end
+
+  it 'should default to five seconds when waiting for the host' do
+    platform.should_receive(:wait_for_host).with(5)
+    screen_object.wait_for_host
+  end
 end

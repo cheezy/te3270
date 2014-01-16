@@ -36,6 +36,10 @@ module TE3270
       def wait_for_string(str)
         screen.WaitForString(str)
       end
+
+      def wait_for_host(seconds)
+        screen.WaitHostQuiet(seconds)
+      end
     end
   end
 end
