@@ -24,4 +24,8 @@ module TE3270
   def disconnect
     platform.disconnect
   end
+
+  def send_keys(keys)
+    platform.send_keys(keys)
+  end
 end

@@ -29,6 +29,9 @@ module TE3270
         screen.PutString(str, row, column)
       end
 
+      def send_keys(keys)
+        screen.SendKeys(keys)
+      end
     end
   end
 end

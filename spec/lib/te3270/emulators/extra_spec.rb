@@ -51,4 +51,12 @@ describe TE3270::Emulators::Extra do
       extra.put_string('blah', 1, 2)
     end
   end
+
+  describe "interacting with the screen" do
+    it 'should know how to send function keys' do
+      mock_screen.should_receive(:SendKeys).with("<Clear>")
+      extra.connect
+      extra.send_keys(TE3270.Clear)
+    end
+  end
 end

@@ -30,4 +30,9 @@ describe TE3270 do
     TE3270.Clear.should == '<Clear>'
     TE3270.Pf24.should == '<Pf24>'
   end
+
+  it 'should should use the platform to send keys to the screen' do
+    platform.should_receive(:send_keys).with('<Clear>')
+    screen_object.send_keys(TE3270.Clear)
+  end
 end
