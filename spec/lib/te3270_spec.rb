@@ -31,8 +31,13 @@ describe TE3270 do
     TE3270.Pf24.should == '<Pf24>'
   end
 
-  it 'should should use the platform to send keys to the screen' do
+  it 'should use the platform to send keys to the screen' do
     platform.should_receive(:send_keys).with('<Clear>')
     screen_object.send_keys(TE3270.Clear)
+  end
+
+  it 'should use the platform to wait for a string to appear on the screen' do
+    platform.should_receive(:wait_for_string).with('The String')
+    screen_object.wait_for_string('The String')
   end
 end

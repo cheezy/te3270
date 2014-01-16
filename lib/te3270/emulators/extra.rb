@@ -32,6 +32,10 @@ module TE3270
       def send_keys(keys)
         screen.SendKeys(keys)
       end
+
+      def wait_for_string(str)
+        screen.WaitForString(str)
+      end
     end
   end
 end

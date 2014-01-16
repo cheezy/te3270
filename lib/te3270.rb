@@ -28,4 +28,8 @@ module TE3270
   def send_keys(keys)
     platform.send_keys(keys)
   end
+
+  def wait_for_string(str)
+    platform.wait_for_string(str)
+  end
 end
