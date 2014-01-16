@@ -25,4 +25,9 @@ describe TE3270 do
     platform.should_receive(:disconnect)
     screen_object.disconnect
   end
+
+  it 'should know the function keys' do
+    TE3270.Clear.should == '<Clear>'
+    TE3270.Pf24.should == '<Pf24>'
+  end
 end
