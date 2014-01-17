@@ -20,6 +20,8 @@ end
 def mock_session
   @mock_session ||= double('session')
   @mock_session.stub(:Screen).and_return mock_screen
+  @mock_session.stub(:WindowState=)
+  @mock_session.stub(:Visible=)
   @mock_session
 end
 

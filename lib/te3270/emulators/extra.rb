@@ -5,7 +5,7 @@ module TE3270
     class Extra
 
       attr_reader :system, :session, :screen
-      attr_writer :session_file
+      attr_writer :session_file, :visible
 
       def connect
         begin
@@ -20,6 +20,8 @@ module TE3270
         sessions.CloseAll if sessions.Count > 0
 
         @session = sessions.Open @session_file
+        @session.WindowState = 1
+        @session.Visible = (@visible ? @visible : true)
         @screen = session.Screen
       end
 
