@@ -21,10 +21,14 @@ describe TE3270::Emulators::Extra do
       extra.connect
     end
 
-    it 'should get a session' do
-      mock_system.should_receive(:Sessions).and_return(mock_sessions)
-      mock_sessions.should_receive(:Count).and_return(0)
+    it 'should open a session' do
       mock_sessions.should_receive(:Open).and_return(mock_session)
+      extra.connect
+    end
+
+    it 'should close all sessions if some are open' do
+      mock_sessions.should_receive(:Count).and_return(1)
+      mock_sessions.should_receive(:CloseAll)
       extra.connect
     end
 
@@ -33,6 +37,18 @@ describe TE3270::Emulators::Extra do
       extra.connect do |platform|
         platform.session_file = 'blah.edp'
       end
+    end
+
+    it 'should take the visible value from the block' do
+      mock_session.should_receive(:Visible=).with(false)
+      extra.connect do |platform|
+        platform.visible = false
+      end
+    end
+
+    it 'should default to being visible' do
+      mock_session.should_receive(:Visible=).with(true)
+      extra.connect
     end
 
     it 'should get the screen for the active session' do

@@ -50,7 +50,7 @@ module TE3270
       def open_session
         @session = sessions.Open @session_file
         @session.WindowState = 1
-        @session.Visible = (@visible ? @visible : true)
+        @session.Visible = (@visible.nil? ? true : @visible)
       end
 
       def close_all_sessions
