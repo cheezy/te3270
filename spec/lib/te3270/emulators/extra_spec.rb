@@ -21,9 +21,18 @@ describe TE3270::Emulators::Extra do
       extra.connect
     end
 
-    it 'should get the active session' do
-      mock_system.should_receive(:ActiveSession).and_return(mock_session)
+    it 'should get a session' do
+      mock_system.should_receive(:Sessions).and_return(mock_sessions)
+      mock_sessions.should_receive(:Count).and_return(0)
+      mock_sessions.should_receive(:Open).and_return(mock_session)
       extra.connect
+    end
+
+    it 'should call a block allowing the session file to be set' do
+      mock_sessions.should_receive(:Open).with('blah.edp').and_return(mock_session)
+      extra.connect do |platform|
+        platform.session_file = 'blah.edp'
+      end
     end
 
     it 'should get the screen for the active session' do

@@ -5,6 +5,7 @@ module TE3270
     class Extra
 
       attr_reader :system, :session, :screen
+      attr_writer :session_file
 
       def connect
         begin
@@ -13,7 +14,12 @@ module TE3270
           @system = WIN32OLE.new('EXTRA.System')
         end
 
-        @session = system.ActiveSession
+        yield self if block_given?
+
+        sessions = system.Sessions
+        sessions.CloseAll if sessions.Count > 0
+
+        @session = sessions.Open @session_file
         @screen = session.Screen
       end
 
