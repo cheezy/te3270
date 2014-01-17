@@ -16,9 +16,7 @@ module TE3270
 
         yield self if block_given?
 
-        @sessions = system.Sessions
-        @sessions.CloseAll if sessions.Count > 0
-
+        close_all_sessions
         open_session
         @screen = session.Screen
       end
@@ -53,6 +51,11 @@ module TE3270
         @session = sessions.Open @session_file
         @session.WindowState = 1
         @session.Visible = (@visible ? @visible : true)
+      end
+
+      def close_all_sessions
+        @sessions = system.Sessions
+        @sessions.CloseAll if sessions.Count > 0
       end
     end
   end
