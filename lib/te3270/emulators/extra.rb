@@ -4,7 +4,7 @@ module TE3270
   module Emulators
     class Extra
 
-      attr_reader :system, :session, :screen
+      attr_reader :system, :sessions, :session, :screen
       attr_writer :session_file, :visible
 
       def connect
@@ -16,12 +16,10 @@ module TE3270
 
         yield self if block_given?
 
-        sessions = system.Sessions
-        sessions.CloseAll if sessions.Count > 0
+        @sessions = system.Sessions
+        @sessions.CloseAll if sessions.Count > 0
 
-        @session = sessions.Open @session_file
-        @session.WindowState = 1
-        @session.Visible = (@visible ? @visible : true)
+        open_session
         @screen = session.Screen
       end
 
@@ -47,6 +45,14 @@ module TE3270
 
       def wait_for_host(seconds)
         screen.WaitHostQuiet(seconds)
+      end
+
+      private
+
+      def open_session
+        @session = sessions.Open @session_file
+        @session.WindowState = 1
+        @session.Visible = (@visible ? @visible : true)
       end
     end
   end
