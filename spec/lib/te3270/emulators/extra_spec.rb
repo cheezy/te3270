@@ -72,6 +72,7 @@ describe TE3270::Emulators::Extra do
 
     it 'should put the value on the screen' do
       mock_screen.should_receive(:PutString).with('blah', 1, 2)
+      mock_screen.should_receive(:SendKeys).with('<Enter>')
       extra.connect
       extra.put_string('blah', 1, 2)
     end
@@ -91,7 +92,7 @@ describe TE3270::Emulators::Extra do
     end
 
     it 'should wait for the host to be quiet' do
-      mock_screen.should_receive(:WaitHostQuiet).with(4)
+      mock_screen.should_receive(:WaitHostQuiet).with(4000)
       extra.connect
       extra.wait_for_host(4)
     end
