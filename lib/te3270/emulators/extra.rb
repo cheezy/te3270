@@ -5,7 +5,7 @@ module TE3270
     class Extra
 
       attr_reader :system, :sessions, :session, :screen
-      attr_writer :session_file, :visible, :system_timeout
+      attr_writer :session_file, :visible
 
       def connect
         begin
@@ -38,7 +38,7 @@ module TE3270
         screen.SendKeys(keys)
       end
 
-      def wait_for_string(str, options={})
+      def wait_for_string(str)
         screen.WaitForString(str)
       end
 
