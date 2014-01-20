@@ -8,11 +8,7 @@ module TE3270
       attr_writer :session_file, :visible
 
       def connect
-        begin
-          @system = WIN32OLE.connect('EXTRA.System')
-        rescue
-          @system = WIN32OLE.new('EXTRA.System')
-        end
+        start_extra_system
 
         yield self if block_given?
 
@@ -57,6 +53,14 @@ module TE3270
       def close_all_sessions
         @sessions = system.Sessions
         @sessions.CloseAll if sessions.Count > 0
+      end
+
+      def start_extra_system
+        begin
+          @system = WIN32OLE.connect('EXTRA.System')
+        rescue
+          @system = WIN32OLE.new('EXTRA.System')
+        end
       end
     end
   end
