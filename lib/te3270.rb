@@ -29,6 +29,10 @@ module TE3270
     platform.send_keys(keys)
   end
 
+  def screenshot(filename)
+    platform.screenshot(filename)
+  end
+
   def wait_for_string(str)
     platform.wait_for_string(str)
   end

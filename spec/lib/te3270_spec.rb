@@ -50,4 +50,9 @@ describe TE3270 do
     platform.should_receive(:wait_for_host).with(5)
     screen_object.wait_for_host
   end
+
+  it 'should use the platform to take a screenshot of the screen' do
+    platform.should_receive(:screenshot).with('image.png')
+    screen_object.screenshot('image.png')
+  end
 end
