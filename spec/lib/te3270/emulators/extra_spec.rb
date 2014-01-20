@@ -46,6 +46,23 @@ describe TE3270::Emulators::Extra do
       end
     end
 
+    it 'should default to visible when not specified' do
+      mock_session.should_receive(:Visible=).with(true)
+      extra.connect
+    end
+
+    it 'should take the window state value from the block' do
+      mock_session.should_receive(:WindowState=).with(2)
+      extra.connect do |platform|
+        platform.window_state = :maximized
+      end
+    end
+
+    it 'should default to window state normal when not specified' do
+      mock_session.should_receive(:WindowState=).with(1)
+      extra.connect
+    end
+
     it 'should default to being visible' do
       mock_session.should_receive(:Visible=).with(true)
       extra.connect

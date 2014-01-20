@@ -5,7 +5,13 @@ module TE3270
     class Extra
 
       attr_reader :system, :sessions, :session, :screen
-      attr_writer :session_file, :visible
+      attr_writer :session_file, :visible, :window_state
+
+      WINDOW_STATES = {
+          minimized: 0,
+          normal: 1,
+          maximized: 2
+      }
 
       def connect
         start_extra_system
@@ -44,10 +50,18 @@ module TE3270
 
       private
 
+      def window_state
+        @window_state.nil? ? 1 : WINDOW_STATES[@window_state]
+      end
+
+      def visible
+        @visible.nil? ? true : @visible
+      end
+
       def open_session
         @session = sessions.Open @session_file
-        @session.WindowState = 1
-        @session.Visible = (@visible.nil? ? true : @visible)
+        @session.WindowState = window_state
+        @session.Visible = visible
       end
 
       def close_all_sessions
