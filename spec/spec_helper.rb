@@ -2,7 +2,7 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 require 'te3270'
 require 'win32ole'
-
+require 'win32/screenshot'
 
 def mock_system
   @mock_system ||= double('system')

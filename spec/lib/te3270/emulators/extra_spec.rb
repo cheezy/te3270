@@ -115,5 +115,14 @@ describe TE3270::Emulators::Extra do
       extra.wait_for_host(4)
     end
 
+    it 'should take screenshots' do
+      take = double('Take')
+      mock_session.should_receive(:WindowHandle).and_return(123)
+      Win32::Screenshot::Take.should_receive(:of).with(:window, hwnd: 123).and_return(take)
+      take.should_receive(:write).with('image.png')
+      extra.connect
+      extra.screenshot('image.png')
+    end
+
   end
 end

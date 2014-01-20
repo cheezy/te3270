@@ -1,4 +1,5 @@
 require 'win32ole'
+require 'win32/screenshot'
 
 module TE3270
   module Emulators
@@ -47,6 +48,11 @@ module TE3270
 
       def wait_for_host(seconds)
         screen.WaitHostQuiet(seconds*1000)
+      end
+
+      def screenshot(filename)
+        hwnd = session.WindowHandle
+        Win32::Screenshot::Take.of(:window, hwnd: hwnd).write(filename)
       end
 
       private
