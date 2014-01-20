@@ -75,6 +75,7 @@ describe TE3270::Emulators::Extra do
 
     it 'should disconnect from a session' do
       mock_session.should_receive(:Close)
+      mock_system.should_receive(:Quit)
       extra.connect
       extra.disconnect
     end

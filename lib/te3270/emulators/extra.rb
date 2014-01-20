@@ -25,6 +25,7 @@ module TE3270
 
       def disconnect
         session.Close if session
+        system.Quit
       end
 
       def get_string(row, column, length)
