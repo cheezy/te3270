@@ -33,6 +33,10 @@ module TE3270
     platform.screenshot(filename)
   end
 
+  def screentext
+    platform.screentext
+  end
+
   def wait_for_string(str)
     platform.wait_for_string(str)
   end
