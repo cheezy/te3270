@@ -131,7 +131,6 @@ describe TE3270::Emulators::Extra do
     end
 
     it "should get the screen text" do
-      #mock_session.should_receive(:Screen).and_return(mock_screen)
       mock_area.should_receive(:Value).and_return('blah')
       extra.connect
       extra.screentext.should == 'blah'
