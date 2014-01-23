@@ -5,7 +5,7 @@ module TE3270
   module Emulators
     class Extra
 
-      attr_reader :system, :sessions, :session, :screen
+      attr_reader :system, :sessions, :session, :screen, :area
       attr_writer :session_file, :visible, :window_state
 
       WINDOW_STATES = {
@@ -22,6 +22,7 @@ module TE3270
         close_all_sessions
         open_session
         @screen = session.Screen
+        @area = screen.SelectAll
       end
 
       def disconnect
@@ -53,6 +54,10 @@ module TE3270
       def screenshot(filename)
         hwnd = session.WindowHandle
         Win32::Screenshot::Take.of(:window, hwnd: hwnd).write(filename)
+      end
+
+      def screentext
+        area.Value
       end
 
       private

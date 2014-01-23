@@ -73,6 +73,11 @@ describe TE3270::Emulators::Extra do
       extra.connect
     end
 
+    it 'should get the area from the screen' do
+      mock_screen.should_receive(:SelectAll).and_return(mock_area)
+      extra.connect
+    end
+
     it 'should disconnect from a session' do
       mock_session.should_receive(:Close)
       mock_system.should_receive(:Quit)
@@ -94,6 +99,7 @@ describe TE3270::Emulators::Extra do
       extra.connect
       extra.put_string('blah', 1, 2)
     end
+
   end
 
   describe "interacting with the screen" do
@@ -123,6 +129,14 @@ describe TE3270::Emulators::Extra do
       extra.connect
       extra.screenshot('image.png')
     end
+
+    it "should get the screen text" do
+      #mock_session.should_receive(:Screen).and_return(mock_screen)
+      mock_area.should_receive(:Value).and_return('blah')
+      extra.connect
+      extra.screentext.should == 'blah'
+    end
+
 
   end
 end

@@ -27,6 +27,13 @@ end
 
 def mock_screen
   @mock_screen ||= double('screen')
+  @mock_screen.stub(:SelectAll).and_return mock_area
+  @mock_screen
+end
+
+def mock_area
+  @mock_area ||= double('area')
+  @mock_area
 end
 
 
