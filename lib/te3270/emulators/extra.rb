@@ -56,7 +56,7 @@ module TE3270
         Win32::Screenshot::Take.of(:window, hwnd: hwnd).write(filename)
       end
 
-      def screentext
+      def text
         area.Value
       end
 
