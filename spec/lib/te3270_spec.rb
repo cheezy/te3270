@@ -51,4 +51,9 @@ describe TE3270 do
     platform.should_receive(:screenshot).with('image.png')
     screen_object.screenshot('image.png')
   end
+
+  it 'should use the platform to get of the screen' do
+    platform.should_receive(:screentext).and_return("The String")
+    screen_object.screentext.should == "The String"
+  end
 end
