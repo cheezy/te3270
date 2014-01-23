@@ -29,6 +29,10 @@ module TE3270
     platform.send_keys(keys)
   end
 
+  def text
+    platform.text
+  end
+
   def screenshot(filename)
     platform.screenshot(filename)
   end

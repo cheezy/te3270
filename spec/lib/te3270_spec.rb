@@ -50,5 +50,11 @@ describe TE3270 do
   it 'should use the platform to take a screenshot of the screen' do
     platform.should_receive(:screenshot).with('image.png')
     screen_object.screenshot('image.png')
+
+  end
+
+  it 'should use the platform to get the text for the entire screen' do
+    platform.should_receive(:text).and_return('123abc')
+    screen_object.text.should == '123abc'
   end
 end
