@@ -5,8 +5,8 @@ class TEScreenObject
 end
 
 describe TE3270 do
-  let(:screen_object) { TEScreenObject.new }
   let(:platform) { double('platform') }
+  let(:screen_object) { TEScreenObject.new platform }
 
   before(:each) do
     screen_object.stub(:platform).and_return platform

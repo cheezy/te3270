@@ -5,7 +5,8 @@ module TE3270
     include PageNavigation
 
     def on(screen_class, &block)
-      @current_screen = screen_class.new
+      raise '@emulator instance variable must be available to use the ScreenFactory methods' unless @emulator
+      @current_screen = screen_class.new @emulator
       block.call @current_screen if block
       @current_screen
     end

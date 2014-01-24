@@ -9,8 +9,8 @@ end
 
 describe TE3270::Accessors do
 
-  let(:screen_object) { AccessorsTestScreen.new }
   let(:platform) { double('platform') }
+  let(:screen_object) { AccessorsTestScreen.new platform }
 
   before(:each) do
     screen_object.stub(:platform).and_return platform

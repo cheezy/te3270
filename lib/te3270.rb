@@ -29,6 +29,10 @@ module TE3270
     emulator.disconnect
   end
 
+  def initialize(platform)
+    @platform = platform
+  end
+
   def platform
     @platform ||= Extra.new
   end
