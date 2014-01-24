@@ -2,6 +2,7 @@ require 'te3270/version'
 require 'te3270/accessors'
 require 'te3270/screen_factory'
 require 'te3270/function_keys'
+require 'te3270/emulator_factory'
 require 'te3270/emulators/extra'
 
 # This gem can be used to drive a 3270 terminal emulator.  You have to have a supported emulator installed on the
@@ -13,10 +14,19 @@ require 'te3270/emulators/extra'
 module TE3270
   extend FunctionKeys
 
-  attr_reader :platform
-
   def self.included(cls)
     cls.extend TE3270::Accessors
+  end
+
+  def self.emulator_for(platform)
+    platform_class = TE3270::EmulatorFactory.emulator_for(platform)
+    @platform = platform_class.new
+    @platform.connect
+    @platform
+  end
+
+  def self.disconnect(emulator)
+    emulator.disconnect
   end
 
   def platform
