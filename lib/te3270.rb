@@ -18,10 +18,10 @@ module TE3270
     cls.extend TE3270::Accessors
   end
 
-  def self.emulator_for(platform)
+  def self.emulator_for(platform, &block)
     platform_class = TE3270::EmulatorFactory.emulator_for(platform)
     @platform = platform_class.new
-    @platform.connect
+    @platform.connect &block
     @platform
   end
 

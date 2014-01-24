@@ -66,6 +66,14 @@ describe TE3270 do
       TE3270.emulator_for :extra
     end
 
+    it 'should accept a block when creating an emulator' do
+      WIN32OLE.stub(:connect).and_return mock_system
+      mock_sessions.should_receive(:Open).with('blah.edp').and_return(mock_session)
+      TE3270.emulator_for :extra do |emulator|
+        emulator.session_file = 'blah.edp'
+      end
+    end
+
     it 'should allow one to disconnect using the module' do
       platform.should_receive(:disconnect)
       TE3270.disconnect(platform)
