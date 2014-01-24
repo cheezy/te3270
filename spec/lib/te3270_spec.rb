@@ -57,4 +57,9 @@ describe TE3270 do
     platform.should_receive(:text).and_return('123abc')
     screen_object.text.should == '123abc'
   end
+
+  it 'should use the platform to get text content of the screen' do
+    platform.should_receive(:screentext).and_return("The String")
+    screen_object.screentext.should == "The String"
+  end
 end
