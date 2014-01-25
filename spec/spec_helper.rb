@@ -36,5 +36,22 @@ def extra_area
   @extra_area
 end
 
+def quick_system
+  @quick_system ||= double('quick_system')
+  @quick_system.stub(:ActiveSession).and_return quick_session
+  @quick_system.stub(:Visible=)
+  @quick_system
+end
 
+def quick_session
+  @quick_session ||= double('quick_session')
+  @quick_session.stub(:Screen).and_return quick_screen
+  @quick_session.stub(:Connect)
+  @quick_session
+end
+
+def quick_screen
+  @quick_screen ||= double('screen')
+  @quick_screen
+end
 
