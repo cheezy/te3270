@@ -29,6 +29,10 @@ module TE3270
         screen.SendKeys(TE3270.Enter)
       end
 
+      def send_keys(keys)
+        screen.SendKeys(keys)
+      end
+
       private
 
       def visible
