@@ -63,5 +63,13 @@ describe TE3270::Emulators::Quick3270 do
       quick.connect
       quick.get_string(1, 2, 7).should == 'blah'
     end
+
+    it 'should put a value on the screen' do
+      quick_screen.should_receive(:MoveTo).with(15, 56)
+      quick_screen.should_receive(:SendKeys).with('blah')
+      quick_screen.should_receive(:SendKeys).with('<Enter>')
+      quick.connect
+      quick.put_string('blah', 15, 56)
+    end
   end
 end

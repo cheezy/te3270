@@ -99,7 +99,6 @@ describe TE3270::Emulators::Extra do
       extra.connect
       extra.put_string('blah', 1, 2)
     end
-
   end
 
   describe "interacting with the screen" do

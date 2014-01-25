@@ -36,7 +36,7 @@ module TE3270
 
       def put_string(str, row, column)
         screen.PutString(str, row, column)
-        screen.SendKeys('<Enter>')
+        screen.SendKeys(TE3270.Enter)
       end
 
       def send_keys(keys)

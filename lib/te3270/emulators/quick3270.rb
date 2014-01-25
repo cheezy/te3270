@@ -23,6 +23,12 @@ module TE3270
         screen.GetString(row, column, length)
       end
 
+      def put_string(str, row, column)
+        screen.MoveTo(row, column)
+        screen.SendKeys(str)
+        screen.SendKeys(TE3270.Enter)
+      end
+
       private
 
       def visible
