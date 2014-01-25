@@ -46,5 +46,14 @@ describe TE3270::Emulators::Quick3270 do
       quick_session.should_receive(:Connect)
       quick.connect
     end
+
+    it 'should disconnect from a session' do
+      application = double('application')
+      quick_session.should_receive(:Disconnect)
+      quick_system.should_receive(:Application).and_return(application)
+      application.should_receive(:Quit)
+      quick.connect
+      quick.disconnect
+    end
   end
 end

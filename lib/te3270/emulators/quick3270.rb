@@ -11,8 +11,12 @@ module TE3270
       def connect
         start_quick_system
         yield self if block_given?
-
         establish_session
+      end
+
+      def disconnect
+        session.Disconnect
+        system.Application.Quit
       end
 
       private
