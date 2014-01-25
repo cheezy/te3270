@@ -24,5 +24,27 @@ describe TE3270::Emulators::Quick3270 do
       quick_system.should_receive(:ActiveSession).and_return(quick_session)
       quick.connect
     end
+
+    it 'should get the screen from the active session' do
+      quick_session.should_receive(:Screen).and_return(quick_screen)
+      quick.connect
+    end
+
+    it 'should take the Visible value from a block' do
+      quick_system.should_receive(:Visible=).with(false)
+      quick.connect do |platform|
+        platform.visible = false
+      end
+    end
+
+    it 'should default to Visible being true when not provided' do
+      quick_system.should_receive(:Visible=).with(true)
+      quick.connect
+    end
+
+    it 'should make the connection via the session' do
+      quick_session.should_receive(:Connect)
+      quick.connect
+    end
   end
 end

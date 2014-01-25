@@ -39,7 +39,7 @@ describe TE3270::Emulators::Extra do
       end
     end
 
-    it 'should take the visible value from the block' do
+    it 'should take the visible value from a block' do
       extra_session.should_receive(:Visible=).with(false)
       extra.connect do |platform|
         platform.visible = false
