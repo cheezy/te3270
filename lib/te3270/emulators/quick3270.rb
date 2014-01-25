@@ -19,6 +19,10 @@ module TE3270
         system.Application.Quit
       end
 
+      def get_string(row, column, length)
+        screen.GetString(row, column, length)
+      end
+
       private
 
       def visible

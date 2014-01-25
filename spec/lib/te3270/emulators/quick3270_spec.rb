@@ -56,4 +56,12 @@ describe TE3270::Emulators::Quick3270 do
       quick.disconnect
     end
   end
+
+  describe "interacting with text fields" do
+    it 'should get the value from the screen' do
+      quick_screen.should_receive(:GetString).with(1, 2, 7).and_return('blah')
+      quick.connect
+      quick.get_string(1, 2, 7).should == 'blah'
+    end
+  end
 end
