@@ -38,6 +38,10 @@ module TE3270
         screen.WaitForString(str, row, column)
       end
 
+      def wait_for_host(seconds)
+        screen.WaitHostQuiet(seconds * 1000)
+      end
+
       private
 
       def visible

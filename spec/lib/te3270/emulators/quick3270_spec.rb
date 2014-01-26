@@ -98,5 +98,11 @@ describe TE3270::Emulators::Quick3270 do
       quick.connect
       quick.wait_for_string('string', 3, 10)
     end
+
+    it 'should wait for the host to be quiet' do
+      quick_screen.should_receive(:WaitHostQuiet).with(6000)
+      quick.connect
+      quick.wait_for_host(6)
+    end
   end
 end
