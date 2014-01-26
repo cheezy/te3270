@@ -18,7 +18,7 @@ module TE3270
         start_extra_system
 
         yield self if block_given?
-
+        raise 'The session file must be set in a block when calling connect with the Extra emulator.' if @session_file.nil?
         close_all_sessions
         open_session
         @screen = session.Screen

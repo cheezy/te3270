@@ -6,6 +6,7 @@ describe TE3270::Emulators::Extra do
 
   before(:each) do
     WIN32OLE.stub(:connect).and_return extra_system
+    extra.instance_variable_set(:@session_file, 'the_file')
   end
 
 
@@ -37,6 +38,11 @@ describe TE3270::Emulators::Extra do
       extra.connect do |platform|
         platform.session_file = 'blah.edp'
       end
+    end
+
+    it 'should raise an error when the session file is not set' do
+      extra.instance_variable_set(:@session_file, nil)
+      expect { extra.connect }.to raise_error('The session file must be set in a block when calling connect with the Extra emulator.')
     end
 
     it 'should take the visible value from a block' do
