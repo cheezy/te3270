@@ -26,7 +26,7 @@ module TE3270
 
       def put_string(str, row, column)
         screen.MoveTo(row, column)
-        screen.SendKeys(str)
+        screen.PutString(str)
         screen.SendKeys(TE3270.Enter)
       end
 
