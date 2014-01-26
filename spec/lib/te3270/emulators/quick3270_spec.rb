@@ -92,5 +92,11 @@ describe TE3270::Emulators::Quick3270 do
       quick.connect
       quick.send_keys(TE3270.Home)
     end
+
+    it 'should wait for a string to appear' do
+      quick_screen.should_receive(:WaitForString).with('string', 3, 10)
+      quick.connect
+      quick.wait_for_string('string', 3, 10)
+    end
   end
 end
