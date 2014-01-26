@@ -1,10 +1,11 @@
 # TE3270
 
 This gem can be used to drive a 3270 terminal emulator.  You have to have a supported emulator installed on the
-machines on which you use the gem.  Currently the only supported emulator is
+machines on which you use the gem.  Currently the only supported emulators are
 [EXTRA! X-treme](http://www.attachmate.com/Products/Terminal+Emulation/Extra/xtreme/extra-x-treme.htm) by
-Attachmate.  This is a commercial product and you will need to purchase it in order to use this gem.
-We do plan to support other emulators as time permits.
+Attachmate and [Quick3270](http://www.dn-computing.com/Quick3270.htm) by DN-Computing.  These are commercial
+products and you will need to purchase one of them in order to use this gem.  We do plan to support other
+emulators as time permits.
 
 ## Installation
 
