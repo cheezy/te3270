@@ -115,9 +115,9 @@ describe TE3270::Emulators::Extra do
     end
 
     it 'should wait for a string to appear' do
-      extra_screen.should_receive(:WaitForString).with('The String')
+      extra_screen.should_receive(:WaitForString).with('The String', 3, 10)
       extra.connect
-      extra.wait_for_string('The String')
+      extra.wait_for_string('The String', 3, 10)
     end
 
     it 'should wait for the host to be quiet' do

@@ -43,8 +43,8 @@ module TE3270
         screen.SendKeys(keys)
       end
 
-      def wait_for_string(str)
-        screen.WaitForString(str)
+      def wait_for_string(str, row, column)
+        screen.WaitForString(str, row, column)
       end
 
       def wait_for_host(seconds)
