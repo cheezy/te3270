@@ -141,6 +141,5 @@ describe TE3270::Emulators::Extra do
       extra.text.should == 'blah'
     end
 
-
   end
 end
