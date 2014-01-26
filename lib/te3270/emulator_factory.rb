@@ -1,4 +1,5 @@
 require 'te3270/emulators/extra'
+require 'te3270/emulators/quick3270'
 
 module TE3270
   module EmulatorFactory

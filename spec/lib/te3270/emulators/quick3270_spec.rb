@@ -125,7 +125,7 @@ describe TE3270::Emulators::Quick3270 do
       quick_screen.should_receive(:Rows).and_return(3)
       quick_screen.should_receive(:Cols).and_return(10)
       3.times do |time|
-        quick_screen.should_receive(:GetString).with(time, 1, 10).and_return("row #{time}")
+        quick_screen.should_receive(:GetString).with(time+1, 1, 10).and_return("row #{time}")
       end
       quick.connect
       quick.text.should == 'row 0\nrow 1\nrow 2\n'

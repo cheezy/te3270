@@ -52,7 +52,7 @@ module TE3270
         columns = screen.Cols
         result = ''
         rows.times do |row|
-          result += "#{screen.GetString(row, 1, columns)}\\n"
+          result += "#{screen.GetString(row+1, 1, columns)}\\n"
         end
         result
       end
