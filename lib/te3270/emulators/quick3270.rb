@@ -6,7 +6,7 @@ module TE3270
     class Quick3270
 
       attr_reader :system, :session, :screen
-      attr_writer :visible
+      attr_writer :visible, :server_name
 
       def connect
         start_quick_system
@@ -48,8 +48,9 @@ module TE3270
       end
 
       def establish_session
-        @system.Visible = visible
+        system.Visible = visible
         @session = system.ActiveSession
+        session.Server_Name = @server_name
         @screen = session.Screen
         session.Connect
       end

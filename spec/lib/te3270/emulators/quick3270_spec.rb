@@ -37,6 +37,13 @@ describe TE3270::Emulators::Quick3270 do
       end
     end
 
+    it 'should take the server name from a block' do
+      quick_session.should_receive(:Server_Name=).with('mainframe_hostname')
+      quick.connect do |platform|
+        platform.server_name = 'mainframe_hostname'
+      end
+    end
+
     it 'should default to Visible being true when not provided' do
       quick_system.should_receive(:Visible=).with(true)
       quick.connect
