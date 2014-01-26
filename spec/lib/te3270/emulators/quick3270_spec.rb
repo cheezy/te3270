@@ -6,6 +6,7 @@ describe TE3270::Emulators::Quick3270 do
 
   before(:each) do
     WIN32OLE.stub(:connect).and_return quick_system
+    quick.instance_variable_set(:@server_name, 'the_host')
   end
 
   describe "global behaviors" do
@@ -42,6 +43,11 @@ describe TE3270::Emulators::Quick3270 do
       quick.connect do |platform|
         platform.server_name = 'mainframe_hostname'
       end
+    end
+
+    it 'should display an error when the server name is not set' do
+      quick.instance_variable_set(:@server_name, nil)
+      expect { quick.connect }.to raise_error('The server name must be set in a block when calling connect with the Quick3270 emulator.')
     end
 
     it 'should default to Visible being true when not provided' do

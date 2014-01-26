@@ -11,6 +11,7 @@ module TE3270
       def connect
         start_quick_system
         yield self if block_given?
+        raise "The server name must be set in a block when calling connect with the Quick3270 emulator." if @server_name.nil?
         establish_session
       end
 
