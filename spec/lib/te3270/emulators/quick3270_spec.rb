@@ -38,6 +38,13 @@ describe TE3270::Emulators::Quick3270 do
       end
     end
 
+    it 'should take the port number from a block' do
+      quick_session.should_receive(:PortNumber=).with(2300)
+      quick.connect do |platform|
+        platform.port_number = 2300
+      end
+    end
+
     it 'should take the server name from a block' do
       quick_session.should_receive(:Server_Name=).with('mainframe_hostname')
       quick.connect do |platform|
