@@ -42,6 +42,11 @@ module TE3270
         screen.WaitHostQuiet(seconds * 1000)
       end
 
+      def screenshot(filename)
+        title = session.WindowTitle
+        Win32::Screenshot::Take.of(:window, title: title).write(filename)
+      end
+
       private
 
       def visible
