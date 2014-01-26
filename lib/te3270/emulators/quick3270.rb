@@ -47,6 +47,16 @@ module TE3270
         Win32::Screenshot::Take.of(:window, title: title).write(filename)
       end
 
+      def text
+        rows = screen.Rows
+        columns = screen.Cols
+        result = ''
+        rows.times do |row|
+          result += "#{screen.GetString(row, 1, columns)}\\n"
+        end
+        result
+      end
+
       private
 
       def visible
