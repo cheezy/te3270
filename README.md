@@ -23,7 +23,18 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    class MainframeScreen
+      include TE3270
+
+      text_field(:userid, 10, 30, 20, true)
+      text_field(:password, 12, 30, 20, true)
+    end
+
+    emulator = TN3270.emulator_for :extra
+    my_screen = MainframeScreen.new(emulator)
+    my_screen.userid = 'the_id'
+    my_screen.password = 'the_password'
+
 
 ## Contributing
 
