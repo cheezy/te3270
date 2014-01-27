@@ -58,8 +58,8 @@ module TE3270
     platform.screenshot(filename)
   end
 
-  def wait_for_string(str)
-    platform.wait_for_string(str)
+  def wait_for_string(str, row, column)
+    platform.wait_for_string(str, row, column)
   end
 
   def wait_for_host(seconds=5)

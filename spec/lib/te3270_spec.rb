@@ -29,8 +29,8 @@ describe TE3270 do
     end
 
     it 'should use the platform to wait for a string to appear on the screen' do
-      platform.should_receive(:wait_for_string).with('The String')
-      screen_object.wait_for_string('The String')
+      platform.should_receive(:wait_for_string).with('The String', 2, 4)
+      screen_object.wait_for_string('The String', 2, 4)
     end
 
     it 'should use the platform to wait for the host to be quiet' do
