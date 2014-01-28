@@ -31,6 +31,11 @@ the various fields that you wish to interact with on the screen.
 
       text_field(:userid, 10, 30, 20)
       text_field(:password, 12, 30, 20)
+
+      def login(username, password)
+        self.userid = username
+        self.password = password
+      end
     end
 
     emulator = TE3270.emulator_for :extra do |platform|
@@ -58,6 +63,10 @@ You also need to setup some hooks to start and stop the emulator:
     end
 
 This allows you to use the `on` method in your step definitions like this:
+
+    on(MainframeScreen).login('the_user', 'the_password')
+
+or you can use the version of `on` that takes a block like this:
 
     on(MainframeScreen) do |screen|
       screen.userid = 'the_id'
