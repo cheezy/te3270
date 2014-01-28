@@ -128,6 +128,12 @@ describe TE3270::Emulators::Extra do
       extra.wait_for_host(4)
     end
 
+    it 'should wait until the cursor is at a position' do
+      extra_screen.should_receive(:WaitForCursor).with(5, 8)
+      extra.connect
+      extra.wait_until_cursor_at(5, 8)
+    end
+
     it 'should take screenshots' do
       take = double('Take')
       extra_session.should_receive(:WindowHandle).and_return(123)

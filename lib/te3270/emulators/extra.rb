@@ -53,6 +53,10 @@ module TE3270
         screen.WaitHostQuiet(seconds*1000)
       end
 
+      def wait_until_cursor_at(row, column)
+        screen.WaitForCursor(row, column)
+      end
+
       def screenshot(filename)
         hwnd = session.WindowHandle
         Win32::Screenshot::Take.of(:window, hwnd: hwnd).write(filename)
