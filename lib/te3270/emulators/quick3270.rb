@@ -6,7 +6,7 @@ module TE3270
     class Quick3270
 
       attr_reader :system, :session, :screen
-      attr_writer :visible, :server_name, :port_number
+      attr_writer :visible, :server_name, :port_number, :max_wait_time
 
       def connect
         start_quick_system
@@ -28,7 +28,7 @@ module TE3270
         screen.MoveTo(row, column)
         screen.PutString(str)
         screen.SendKeys(TE3270.Enter)
-        screen.WaitHostQuiet(3000)
+        screen.WaitHostQuiet(max_wait_time)
       end
 
       def send_keys(keys)
@@ -57,6 +57,10 @@ module TE3270
       end
 
       private
+
+      def max_wait_time
+        @max_wait_time ||= 3000
+      end
 
       def visible
         @visible.nil? ? true : @visible

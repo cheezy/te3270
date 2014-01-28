@@ -6,7 +6,7 @@ module TE3270
     class Extra
 
       attr_reader :system, :sessions, :session, :screen, :area
-      attr_writer :session_file, :visible, :window_state
+      attr_writer :session_file, :visible, :window_state, :max_wait_time
 
       WINDOW_STATES = {
           minimized: 0,
@@ -37,7 +37,7 @@ module TE3270
       def put_string(str, row, column)
         screen.PutString(str, row, column)
         screen.SendKeys(TE3270.Enter)
-        screen.WaitHostQuiet(3000)
+        screen.WaitHostQuiet(max_wait_time)
       end
 
       def send_keys(keys)
@@ -62,6 +62,10 @@ module TE3270
       end
 
       private
+
+      def max_wait_time
+        @max_wait_time ||= 3000
+      end
 
       def window_state
         @window_state.nil? ? 1 : WINDOW_STATES[@window_state]
