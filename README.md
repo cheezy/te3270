@@ -23,7 +23,7 @@ Or install it yourself as:
 
 ## Usage
 
-You can create classes that a similar to page-object classes.  In these classes you can define
+You can create classes that are similar to page-object classes.  In these classes you can define
 the various fields that you wish to interact with on the screen.
 
     class MainframeScreen
