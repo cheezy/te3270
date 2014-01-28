@@ -97,6 +97,7 @@ describe TE3270::Emulators::Quick3270 do
   describe "interacting with the screen" do
     it 'should know how to send function keys' do
       quick_screen.should_receive(:SendKeys).with('<Home>')
+      quick_screen.should_receive(:WaitHostQuiet).with(3000)
       quick.connect
       quick.send_keys(TE3270.Home)
     end
