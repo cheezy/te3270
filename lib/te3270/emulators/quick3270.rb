@@ -28,6 +28,7 @@ module TE3270
         screen.MoveTo(row, column)
         screen.PutString(str)
         screen.SendKeys(TE3270.Enter)
+        screen.WaitHostQuiet(3000)
       end
 
       def send_keys(keys)
