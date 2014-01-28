@@ -5,6 +5,7 @@ class AccessorsTestScreen
 
   text_field(:method_name, 1, 2, 10, true)
   text_field(:read_only, 2, 3, 12, false)
+  text_field(:default_editable, 3, 4, 14)
 end
 
 describe TE3270::Accessors do
@@ -28,6 +29,10 @@ describe TE3270::Accessors do
 
     it 'should not generate a method to set the value if it is not editable' do
       screen_object.should_not respond_to :read_only=
+    end
+
+    it 'should default to being editable when it is not specified' do
+      screen_object.should respond_to :default_editable=
     end
 
     it 'should use the platform to get the text value' do

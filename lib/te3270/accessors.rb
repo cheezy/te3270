@@ -2,7 +2,7 @@
 module TE3270
   module Accessors
 
-    def text_field(name, row, column, length, editable)
+    def text_field(name, row, column, length, editable=true)
       define_method(name) do
         platform.get_text_field(row, column, length)
       end
