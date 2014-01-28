@@ -114,6 +114,12 @@ describe TE3270::Emulators::Quick3270 do
       quick.wait_for_host(6)
     end
 
+    it 'should wait until the cursor is at a position' do
+      quick_screen.should_receive(:WaitForCursor).with(5, 8)
+      quick.connect
+      quick.wait_until_cursor_at(5,8)
+    end
+
     it 'should take screenshots' do
       take = double('Take')
       quick_session.should_receive(:WindowTitle).and_return('The Title')

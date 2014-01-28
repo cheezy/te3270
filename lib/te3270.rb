@@ -83,4 +83,8 @@ module TE3270
   def wait_for_host(seconds=5)
     platform.wait_for_host(seconds)
   end
+
+  def wait_until_cursor_at(row, column)
+    platform.wait_until_cursor_at(row, column)
+  end
 end

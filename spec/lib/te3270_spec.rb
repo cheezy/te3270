@@ -43,6 +43,11 @@ describe TE3270 do
       screen_object.wait_for_host
     end
 
+    it 'should use the platform to wait until the cursor at a specific position' do
+      platform.should_receive(:wait_until_cursor_at).with(10, 10)
+      screen_object.wait_until_cursor_at(10, 10)
+    end
+
     it 'should use the platform to take a screenshot of the screen' do
       platform.should_receive(:screenshot).with('image.png')
       screen_object.screenshot('image.png')
