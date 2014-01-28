@@ -36,12 +36,12 @@ describe TE3270::Accessors do
     end
 
     it 'should use the platform to get the text value' do
-      platform.should_receive(:get_text_field).with(1, 2, 10).and_return('abc')
+      platform.should_receive(:get_string).with(1, 2, 10).and_return('abc')
       screen_object.method_name.should == 'abc'
     end
 
     it 'should use the platform to set the text value' do
-      platform.should_receive(:put_text_field).with('abc', 1, 2)
+      platform.should_receive(:put_string).with('abc', 1, 2)
       screen_object.method_name = 'abc'
     end
 
