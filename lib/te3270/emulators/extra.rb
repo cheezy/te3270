@@ -37,11 +37,12 @@ module TE3270
       def put_string(str, row, column)
         screen.PutString(str, row, column)
         screen.SendKeys(TE3270.Enter)
-        screen.WaitHostQuiet(max_wait_time)
+        quiet_period
       end
 
       def send_keys(keys)
         screen.SendKeys(keys)
+        quiet_period
       end
 
       def wait_for_string(str, row, column)
@@ -62,6 +63,10 @@ module TE3270
       end
 
       private
+
+      def quiet_period
+        screen.WaitHostQuiet(max_wait_time)
+      end
 
       def max_wait_time
         @max_wait_time ||= 3000

@@ -111,6 +111,7 @@ describe TE3270::Emulators::Extra do
   describe "interacting with the screen" do
     it 'should know how to send function keys' do
       extra_screen.should_receive(:SendKeys).with('<Clear>')
+      extra_screen.should_receive(:WaitHostQuiet).with(3000)
       extra.connect
       extra.send_keys(TE3270.Clear)
     end
