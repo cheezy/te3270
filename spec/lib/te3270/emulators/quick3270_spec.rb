@@ -87,7 +87,6 @@ describe TE3270::Emulators::Quick3270 do
     it 'should put a value on the screen' do
       quick_screen.should_receive(:MoveTo).with(15, 56)
       quick_screen.should_receive(:PutString).with('blah')
-      quick_screen.should_receive(:SendKeys).with('<Enter>')
       quick_screen.should_receive(:WaitHostQuiet).with(3000)
       quick.connect
       quick.put_string('blah', 15, 56)

@@ -101,7 +101,6 @@ describe TE3270::Emulators::Extra do
 
     it 'should put the value on the screen' do
       extra_screen.should_receive(:PutString).with('blah', 1, 2)
-      extra_screen.should_receive(:SendKeys).with('<Enter>')
       extra_screen.should_receive(:WaitHostQuiet).with(3000)
       extra.connect
       extra.put_string('blah', 1, 2)
