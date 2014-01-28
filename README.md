@@ -23,18 +23,46 @@ Or install it yourself as:
 
 ## Usage
 
+You can create classes that a similar to page-object classes.  In these classes you can define
+the various fields that you wish to interact with on the screen.
+
     class MainframeScreen
       include TE3270
 
-      text_field(:userid, 10, 30, 20, true)
-      text_field(:password, 12, 30, 20, true)
+      text_field(:userid, 10, 30, 20)
+      text_field(:password, 12, 30, 20)
     end
 
-    emulator = TN3270.emulator_for :extra
+    emulator = TE3270.emulator_for :extra do |platform|
+      platform.session_file = 'sessionfile.edp'
+    end
     my_screen = MainframeScreen.new(emulator)
     my_screen.userid = 'the_id'
     my_screen.password = 'the_password'
 
+If you are using this gem with cucumber then you can register the ScreenFactory module with the
+cucumber World like this:
+
+    World(TE3270::ScreenFactory)
+
+You also need to setup some hooks to start and stop the emulator:
+
+    Begin do
+      @emulator = TE3270.emulator_for :extra do |platform|
+        platform.session_file = 'sessionfile.edp'
+      end
+    end
+
+    After do
+      TE3270.disconnect(@emulator)
+    end
+
+This allows you to use the `on` method in your step definitions like this:
+
+    on(MainframeScreen) do |screen|
+      screen.userid = 'the_id'
+      screen.password = 'the_password'
+    end
 
 ## Contributing
 
