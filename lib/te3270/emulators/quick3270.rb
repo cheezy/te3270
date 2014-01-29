@@ -76,9 +76,9 @@ module TE3270
 
       def start_quick_system
         begin
-          @system = WIN32OLE.connect('Quick3270.Application')
-        rescue
           @system = WIN32OLE.new('Quick3270.Application')
+        rescue Exception => e
+          $stderr.puts e
         end
       end
 

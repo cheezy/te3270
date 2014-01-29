@@ -72,7 +72,7 @@ describe TE3270 do
     end
 
     it 'should accept a block when creating an emulator' do
-      WIN32OLE.stub(:connect).and_return extra_system
+      WIN32OLE.stub(:new).and_return extra_system
       extra_sessions.should_receive(:Open).with('blah.edp').and_return(extra_session)
       TE3270.emulator_for :extra do |emulator|
         emulator.session_file = 'blah.edp'

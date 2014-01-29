@@ -5,19 +5,13 @@ describe TE3270::Emulators::Extra do
   let(:extra) { TE3270::Emulators::Extra.new }
 
   before(:each) do
-    WIN32OLE.stub(:connect).and_return extra_system
+    WIN32OLE.stub(:new).and_return extra_system
     extra.instance_variable_set(:@session_file, 'the_file')
   end
 
 
   describe "global behaviors" do
-    it 'should attempt to connect to an already running terminal' do
-      WIN32OLE.should_receive(:connect).with('EXTRA.System').and_return(extra_system)
-      extra.connect
-    end
-
-    it 'should start new terminal when one is not already running' do
-      WIN32OLE.should_receive(:connect).and_raise "Error"
+    it 'should start a new terminal' do
       WIN32OLE.should_receive(:new).and_return(extra_system)
       extra.connect
     end

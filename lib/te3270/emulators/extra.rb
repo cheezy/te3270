@@ -96,9 +96,9 @@ module TE3270
 
       def start_extra_system
         begin
-          @system = WIN32OLE.connect('EXTRA.System')
-        rescue
           @system = WIN32OLE.new('EXTRA.System')
+        rescue Exception => e
+          $stderr.puts e
         end
       end
     end
