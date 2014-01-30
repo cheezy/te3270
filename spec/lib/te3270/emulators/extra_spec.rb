@@ -100,8 +100,10 @@ describe TE3270::Emulators::Extra do
     end
 
     it 'should put the value on the screen' do
+      wait_collection = double('wait')
       extra_screen.should_receive(:PutString).with('blah', 1, 2)
-      extra_screen.should_receive(:WaitHostQuiet).with(3000)
+      extra_screen.should_receive(:WaitHostQuiet).and_return(wait_collection)
+      wait_collection.should_receive(:Wait).with(1000)
       extra.connect
       extra.put_string('blah', 1, 2)
     end
@@ -109,8 +111,10 @@ describe TE3270::Emulators::Extra do
 
   describe "interacting with the screen" do
     it 'should know how to send function keys' do
+      wait_collection = double('wait')
       extra_screen.should_receive(:SendKeys).with('<Clear>')
-      extra_screen.should_receive(:WaitHostQuiet).with(3000)
+      extra_screen.should_receive(:WaitHostQuiet).and_return(wait_collection)
+      wait_collection.should_receive(:Wait).with(1000)
       extra.connect
       extra.send_keys(TE3270.Clear)
     end
@@ -125,7 +129,9 @@ describe TE3270::Emulators::Extra do
     end
 
     it 'should wait for the host to be quiet' do
-      extra_screen.should_receive(:WaitHostQuiet).with(4000)
+      wait_col = double('wait')
+      extra_screen.should_receive(:WaitHostQuiet).and_return(wait_col)
+      wait_col.should_receive(:Wait).with(4000)
       extra.connect
       extra.wait_for_host(4)
     end

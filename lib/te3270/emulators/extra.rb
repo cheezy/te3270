@@ -45,12 +45,15 @@ module TE3270
       end
 
       def wait_for_string(str, row, column)
-        wait_collection = screen.WaitForString(str, row, column)
-        wait_collection.Wait(system.TimeoutValue)
+        wait_for do
+          screen.WaitForString(str, row, column)
+        end
       end
 
       def wait_for_host(seconds)
-        screen.WaitHostQuiet(seconds*1000)
+        wait_for(seconds) do
+          screen.WaitHostQuiet
+        end
       end
 
       def wait_until_cursor_at(row, column)
@@ -68,12 +71,17 @@ module TE3270
 
       private
 
+      def wait_for(seconds = system.TimeoutValue / 1000)
+        wait_collection = yield
+        wait_collection.Wait(seconds * 1000)
+      end
+
       def quiet_period
-        screen.WaitHostQuiet(max_wait_time)
+        wait_for_host(max_wait_time)
       end
 
       def max_wait_time
-        @max_wait_time ||= 3000
+        @max_wait_time ||= 1
       end
 
       def window_state
