@@ -21,6 +21,12 @@ describe TE3270::Emulators::Extra do
       extra.connect
     end
 
+    it 'should not display the splash screen if version is higher than 9' do
+      extra_system.should_receive(:Version).and_return("9.2")
+      extra_sessions.should_receive(:VisibleOnStartup=).with(true)
+      extra.connect
+    end
+
     it 'should close all sessions if some are open' do
       extra_sessions.should_receive(:Count).and_return(1)
       extra_sessions.should_receive(:CloseAll)

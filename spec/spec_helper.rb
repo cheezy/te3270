@@ -7,6 +7,7 @@ require 'win32/screenshot'
 def extra_system
   @extra_system ||= double('system')
   @extra_system.stub(:Sessions).and_return extra_sessions
+  @extra_system.stub(:Version).and_return("0")
   @extra_system
 end
 

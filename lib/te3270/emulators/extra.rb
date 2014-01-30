@@ -84,6 +84,8 @@ module TE3270
       end
 
       def open_session
+        version = system.Version
+        sessions.VisibleOnStartup = true if version.to_i >= 9
         @session = sessions.Open @session_file
         @session.WindowState = window_state
         @session.Visible = visible
