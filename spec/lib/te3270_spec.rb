@@ -2,6 +2,12 @@ require 'spec_helper'
 
 class TEScreenObject
   include TE3270
+
+  attr_reader :initialize_screen
+
+  def initialize_screen
+    @initialize_screen = true
+  end
 end
 
 describe TE3270 do
@@ -63,6 +69,10 @@ describe TE3270 do
     it 'should know the function keys' do
       TE3270.Clear.should == '<Clear>'
       TE3270.Pf24.should == '<Pf24>'
+    end
+
+    it 'should call initialize_screen if it exists' do
+      screen_object.initialize_screen.should be_true
     end
 
     it 'should create an emulator and connect to terminal' do

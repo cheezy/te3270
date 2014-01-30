@@ -50,6 +50,7 @@ module TE3270
 
   def initialize(platform)
     @platform = platform
+    initialize_screen if respond_to? :initialize_screen
   end
 
   def platform
