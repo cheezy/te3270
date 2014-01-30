@@ -62,8 +62,10 @@ module TE3270
       end
 
       def screenshot(filename)
+        session.Visible = true unless visible
         hwnd = session.WindowHandle
         Win32::Screenshot::Take.of(:window, hwnd: hwnd).write(filename)
+        session.Visible = false unless visible
       end
 
       def text
