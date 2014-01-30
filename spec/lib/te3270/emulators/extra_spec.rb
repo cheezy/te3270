@@ -85,7 +85,6 @@ describe TE3270::Emulators::Extra do
     end
 
     it 'should disconnect from a session' do
-      extra_session.should_receive(:Close)
       extra_system.should_receive(:Quit)
       extra.connect
       extra.disconnect

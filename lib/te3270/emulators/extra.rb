@@ -26,7 +26,6 @@ module TE3270
       end
 
       def disconnect
-        session.Close if session
         system.Quit
       end
 
