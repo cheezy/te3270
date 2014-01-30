@@ -116,7 +116,10 @@ describe TE3270::Emulators::Extra do
     end
 
     it 'should wait for a string to appear' do
-      extra_screen.should_receive(:WaitForString).with('The String', 3, 10)
+      wait_col = double('wait')
+      extra_screen.should_receive(:WaitForString).with('The String', 3, 10).and_return(wait_col)
+      extra_system.should_receive(:TimeoutValue).and_return(30000)
+      wait_col.should_receive(:Wait).with(30000)
       extra.connect
       extra.wait_for_string('The String', 3, 10)
     end

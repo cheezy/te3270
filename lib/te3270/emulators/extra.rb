@@ -45,7 +45,8 @@ module TE3270
       end
 
       def wait_for_string(str, row, column)
-        screen.WaitForString(str, row, column)
+        wait_collection = screen.WaitForString(str, row, column)
+        wait_collection.Wait(system.TimeoutValue)
       end
 
       def wait_for_host(seconds)
