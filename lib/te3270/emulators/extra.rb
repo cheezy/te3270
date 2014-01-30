@@ -83,9 +83,13 @@ module TE3270
         @visible.nil? ? true : @visible
       end
 
-      def open_session
+      def hide_splash_screen
         version = system.Version
         sessions.VisibleOnStartup = true if version.to_i >= 9
+      end
+
+      def open_session
+        hide_splash_screen
         @session = sessions.Open @session_file
         @session.WindowState = window_state
         @session.Visible = visible
