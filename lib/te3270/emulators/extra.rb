@@ -62,6 +62,7 @@ module TE3270
       end
 
       def screenshot(filename)
+        File.delete(filename) if File.exists?(filename)
         session.Visible = true unless visible
         hwnd = session.WindowHandle
         Win32::Screenshot::Take.of(:window, hwnd: hwnd).write(filename)

@@ -7,6 +7,7 @@ describe TE3270::Emulators::Extra do
   before(:each) do
     WIN32OLE.stub(:new).and_return extra_system
     extra.instance_variable_set(:@session_file, 'the_file')
+    File.stub(:exists).and_return false
   end
 
 
@@ -163,6 +164,17 @@ describe TE3270::Emulators::Extra do
       extra.connect do |emulator|
         emulator.visible = false
       end
+      extra.screenshot('image.png')
+    end
+
+    it 'should delete the file for the screenshot if it already exists' do
+      File.should_receive(:exists?).and_return(true)
+      File.should_receive(:delete)
+      take = double('Take')
+      extra_session.should_receive(:WindowHandle).and_return(123)
+      Win32::Screenshot::Take.should_receive(:of).with(:window, hwnd: 123).and_return(take)
+      take.should_receive(:write).with('image.png')
+      extra.connect
       extra.screenshot('image.png')
     end
 
