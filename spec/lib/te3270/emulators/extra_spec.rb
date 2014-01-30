@@ -137,7 +137,10 @@ describe TE3270::Emulators::Extra do
     end
 
     it 'should wait until the cursor is at a position' do
-      extra_screen.should_receive(:WaitForCursor).with(5, 8)
+      wait_col = double('wait')
+      extra_screen.should_receive(:WaitForCursor).with(5, 8).and_return(wait_col)
+      extra_system.should_receive(:TimeoutValue).and_return(30000)
+      wait_col.should_receive(:Wait).with(30000)
       extra.connect
       extra.wait_until_cursor_at(5, 8)
     end

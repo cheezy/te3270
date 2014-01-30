@@ -57,7 +57,9 @@ module TE3270
       end
 
       def wait_until_cursor_at(row, column)
-        screen.WaitForCursor(row, column)
+        wait_for do
+          screen.WaitForCursor(row, column)
+        end
       end
 
       def screenshot(filename)
