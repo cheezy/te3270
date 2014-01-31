@@ -6,7 +6,7 @@ describe TE3270::Emulators::Quick3270 do
 
   before(:each) do
     WIN32OLE.stub(:new).and_return quick_system
-    quick.instance_variable_set(:@server_name, 'the_host')
+    quick.instance_variable_set(:@session_file, 'the_host')
   end
 
   describe "global behaviors" do
@@ -32,22 +32,8 @@ describe TE3270::Emulators::Quick3270 do
       end
     end
 
-    it 'should take the port number from a block' do
-      quick_session.should_receive(:PortNumber=).with(2300)
-      quick.connect do |platform|
-        platform.port_number = 2300
-      end
-    end
-
-    it 'should take the server name from a block' do
-      quick_session.should_receive(:Server_Name=).with('mainframe_hostname')
-      quick.connect do |platform|
-        platform.server_name = 'mainframe_hostname'
-      end
-    end
-
     it 'should display an error when the server name is not set' do
-      quick.instance_variable_set(:@server_name, nil)
+      quick.instance_variable_set(:@session_file, nil)
       expect { quick.connect }.to raise_error('The server name must be set in a block when calling connect with the Quick3270 emulator.')
     end
 

@@ -6,12 +6,12 @@ module TE3270
     class Quick3270
 
       attr_reader :system, :session, :screen
-      attr_writer :visible, :server_name, :port_number, :max_wait_time
+      attr_writer :session_file, :visible, :max_wait_time
 
       def connect
         start_quick_system
         yield self if block_given?
-        raise "The server name must be set in a block when calling connect with the Quick3270 emulator." if @server_name.nil?
+        raise "The server name must be set in a block when calling connect with the Quick3270 emulator." if @session_file.nil?
         establish_session
       end
 
@@ -85,8 +85,6 @@ module TE3270
       def establish_session
         system.Visible = visible
         @session = system.ActiveSession
-        session.Server_Name = @server_name
-        session.PortNumber = @port_number unless @port_number.nil?
         @screen = session.Screen
         session.Connect
       end
