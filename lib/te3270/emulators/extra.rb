@@ -58,25 +58,32 @@ module TE3270
         screen.SendKeys(keys)
         quiet_period
       end
-
+      # Creates a method to wait for the string to appear at the location
+      #@param [String] the string to wait for
+      # @param [int] the x coordinate of location
+      # @param [int] the y coordinate of location
       def wait_for_string(str, row, column)
         wait_for do
           screen.WaitForString(str, row, column)
         end
       end
-
+      # Waits for the host to not send data for a specified number of seconds
+      # @param [int] the number of seconds
       def wait_for_host(seconds)
         wait_for(seconds) do
           screen.WaitHostQuiet
         end
       end
-
+      # Waits until the cursor is at the specified location.
+      # @param [int] the x coordinate of the location
+      # @param [int] the y coordinate of the location
       def wait_until_cursor_at(row, column)
         wait_for do
           screen.WaitForCursor(row, column)
         end
       end
-
+      # Creates a method to take screenshot of the active screen
+      # @param [String] the path and name of the screenshot file to be saved
       def screenshot(filename)
         File.delete(filename) if File.exists?(filename)
         session.Visible = true unless visible
@@ -85,6 +92,8 @@ module TE3270
         session.Visible = false unless visible
       end
 
+      # Creates method to return the text of the actie screen
+      # @return [String]
       def text
         area.Value
       end
