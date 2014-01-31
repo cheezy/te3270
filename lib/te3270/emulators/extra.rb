@@ -14,6 +14,10 @@ module TE3270
           maximized: 2
       }
 
+      #
+      # Creates a method to connect to Extra System. Closes existing sessions and initiates a new session
+      # Gets the screen object from new session. Selects the screen area
+      #
       def connect
         start_extra_system
 
@@ -24,20 +28,32 @@ module TE3270
         @screen = session.Screen
         @area = screen.SelectAll
       end
-
+      # Disconnects the Extra System connection
       def disconnect
         system.Quit
       end
-
+      # Creates a method to extract text of specified length from a start point on the extra Screen object.
+      # @param [int] the x coordinate of location on the screen.
+      # @param [int] the y coordinate of location on the screen.
+      # @param [int] the length of string to extract
+      # @return [String]
       def get_string(row, column, length)
         screen.GetString(row, column, length)
       end
 
+      # Creates a method to put string at the coordinates specified on the extra Screen object.
+      # Once the string is input, quiet period will ensure to not send data for a specified number of milliseconds
+      # @param [int] the string to set
+      # @param [int] the x coordinate of the location on the screen.
+      # @param [int] the y coordinate of the location on the screen.
       def put_string(str, row, column)
         screen.PutString(str, row, column)
         quiet_period
       end
 
+      # Creates a method to send keys to the screen. The keys are defined in function keys
+      # @param [KEYS] the function keys defined by Extra System
+      # Once the string is input, quiet period will ensure to not send data for a specified number of milliseconds
       def send_keys(keys)
         screen.SendKeys(keys)
         quiet_period
