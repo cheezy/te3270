@@ -23,7 +23,6 @@ module TE3270
 
         yield self if block_given?
         raise 'The session file must be set in a block when calling connect with the Extra emulator.' if @session_file.nil?
-        close_all_sessions
         open_session
         @screen = session.Screen
         @area = screen.SelectAll
@@ -71,7 +70,8 @@ module TE3270
 
       #
       # Creates a method to wait for the string to appear at the location
-      #@param [String] the string to wait for
+      #
+      # @param [String] the string to wait for
       # @param [Fixnum] the x coordinate of location
       # @param [Fixnum] the y coordinate of location
       #
@@ -151,15 +151,11 @@ module TE3270
       end
 
       def open_session
+        @sessions = system.Sessions
         hide_splash_screen
         @session = sessions.Open @session_file
         @session.WindowState = window_state
         @session.Visible = visible
-      end
-
-      def close_all_sessions
-        @sessions = system.Sessions
-        @sessions.CloseAll if sessions.Count > 0
       end
 
       def start_extra_system

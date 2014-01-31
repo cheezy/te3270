@@ -28,12 +28,6 @@ describe TE3270::Emulators::Extra do
       extra.connect
     end
 
-    it 'should close all sessions if some are open' do
-      extra_sessions.should_receive(:Count).and_return(1)
-      extra_sessions.should_receive(:CloseAll)
-      extra.connect
-    end
-
     it 'should call a block allowing the session file to be set' do
       extra_sessions.should_receive(:Open).with('blah.edp').and_return(extra_session)
       extra.connect do |platform|
