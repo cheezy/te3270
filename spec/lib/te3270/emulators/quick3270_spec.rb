@@ -32,9 +32,23 @@ describe TE3270::Emulators::Quick3270 do
       end
     end
 
-    it 'should display an error when the server name is not set' do
+    it 'should take the session file from a block' do
+      quick.should_receive(:session_file=).with('blah.txt')
+      quick.connect do |platform|
+        platform.session_file = 'blah.txt'
+      end
+    end
+
+    it 'should display an error when the session file is not set' do
       quick.instance_variable_set(:@session_file, nil)
-      expect { quick.connect }.to raise_error('The server name must be set in a block when calling connect with the Quick3270 emulator.')
+      expect { quick.connect }.to raise_error('The session file must be set in a block when calling connect with the Quick3270 emulator.')
+    end
+
+    it 'should open the connection using the sesion file' do
+      quick_session.should_receive(:Open).with('blah.txt')
+      quick.connect do |platform|
+        platform.session_file = 'blah.txt'
+      end
     end
 
     it 'should default to Visible being true when not provided' do

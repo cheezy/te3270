@@ -47,6 +47,7 @@ end
 def quick_session
   @quick_session ||= double('quick_session')
   @quick_session.stub(:Screen).and_return quick_screen
+  @quick_session.stub(:Open)
   @quick_session.stub(:Connect)
   @quick_session.stub(:Server_Name=)
   @quick_session

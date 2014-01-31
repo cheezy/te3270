@@ -11,7 +11,7 @@ module TE3270
       def connect
         start_quick_system
         yield self if block_given?
-        raise "The server name must be set in a block when calling connect with the Quick3270 emulator." if @session_file.nil?
+        raise "The session file must be set in a block when calling connect with the Quick3270 emulator." if @session_file.nil?
         establish_session
       end
 
@@ -85,6 +85,7 @@ module TE3270
       def establish_session
         system.Visible = visible
         @session = system.ActiveSession
+        session.Open @session_file
         @screen = session.Screen
         session.Connect
       end
