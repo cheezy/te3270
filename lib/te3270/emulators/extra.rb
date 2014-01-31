@@ -92,7 +92,7 @@ module TE3270
         session.Visible = false unless visible
       end
 
-      # Creates method to return the text of the actie screen
+      # Creates method to return the text of the active screen
       # @return [String]
       def text
         area.Value
