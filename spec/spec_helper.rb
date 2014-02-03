@@ -50,6 +50,7 @@ def quick_session
   @quick_session.stub(:Open)
   @quick_session.stub(:Connect)
   @quick_session.stub(:Server_Name=)
+  @quick_session.stub(:Connected).and_return true
   @quick_session
 end
 

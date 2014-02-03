@@ -61,6 +61,13 @@ describe TE3270::Emulators::Quick3270 do
       quick.connect
     end
 
+    it 'should check to make sure the connection is successful before continuing' do
+      quick_session.should_receive(:Connected).once.and_return(false)
+      quick_screen.should_receive(:WaitHostQuiet).once.with(1000)
+      quick_session.should_receive(:Connected).once.and_return(true)
+      quick.connect
+    end
+
     it 'should disconnect from a session' do
       application = double('application')
       quick_session.should_receive(:Disconnect)

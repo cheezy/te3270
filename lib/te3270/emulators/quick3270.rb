@@ -88,6 +88,11 @@ module TE3270
         session.Open @session_file
         @screen = session.Screen
         session.Connect
+        connected = session.Connected
+        while not connected
+          screen.WaitHostQuiet(1000)
+          connected = session.Connected
+        end
       end
 
     end
