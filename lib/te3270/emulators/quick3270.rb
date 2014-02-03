@@ -48,7 +48,7 @@ module TE3270
       end
 
       def screenshot(filename)
-        title = session.WindowTitle
+        title = system.WindowTitle
         Win32::Screenshot::Take.of(:window, title: title).write(filename)
       end
 

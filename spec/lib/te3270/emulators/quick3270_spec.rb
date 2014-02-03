@@ -122,7 +122,7 @@ describe TE3270::Emulators::Quick3270 do
 
     it 'should take screenshots' do
       take = double('Take')
-      quick_session.should_receive(:WindowTitle).and_return('The Title')
+      quick_system.should_receive(:WindowTitle).and_return('The Title')
       Win32::Screenshot::Take.should_receive(:of).with(:window, title: 'The Title').and_return(take)
       take.should_receive(:write).with('image.png')
       quick.connect
