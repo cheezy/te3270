@@ -49,8 +49,10 @@ module TE3270
 
       def screenshot(filename)
         File.delete(filename) if File.exists?(filename)
+        system.Visible = true unless visible
         title = system.WindowTitle
         Win32::Screenshot::Take.of(:window, title: title).write(filename)
+        system.Visible = false unless visible
       end
 
       def text
