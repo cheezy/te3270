@@ -178,6 +178,16 @@ module TE3270
         sessions.VisibleOnStartup = true if version.to_i >= 9
       end
 
+      #
+      # Creates a method to open a session to the Extra System emulator
+      #
+      # Gets the sessions object collection
+      # Hides the splash screen
+      # Creates a session by using the session file
+      # Sets the window state to the value of the window_state property
+      # Sets the visible property on session to the value of visible property
+      #
+
       def open_session
         @sessions = system.Sessions
         hide_splash_screen
@@ -185,6 +195,10 @@ module TE3270
         @session.WindowState = window_state
         @session.Visible = visible
       end
+
+      #
+      # Creates a method to start extra system.
+      #
 
       def start_extra_system
         begin
