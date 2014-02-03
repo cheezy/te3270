@@ -148,13 +148,30 @@ module TE3270
         @max_wait_time ||= 1
       end
 
+      #
+      # Creates a method to define window state of the System. Defaults to '1' i.e normal if value not specified
+      # The values are as defined in the hash WINDOW_STATES
+      #
+
       def window_state
         @window_state.nil? ? 1 : WINDOW_STATES[@window_state]
       end
 
+      #
+      # Creates a method that sets visible property of Extra System. If false, the system runs headless
+      # default value is true
+      #
+
       def visible
         @visible.nil? ? true : @visible
       end
+
+
+      #
+      # Creates method to hide the splash screen that pops up when the system starts up
+      # The hide splash screen is implemented only for Extra version > = 9
+      # The method checks for system version and sets the value 'VisibleOnStartup' to true only if version > = 9
+      #
 
       def hide_splash_screen
         version = system.Version
