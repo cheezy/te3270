@@ -48,6 +48,7 @@ module TE3270
       end
 
       def screenshot(filename)
+        File.delete(filename) if File.exists?(filename)
         title = system.WindowTitle
         Win32::Screenshot::Take.of(:window, title: title).write(filename)
       end
