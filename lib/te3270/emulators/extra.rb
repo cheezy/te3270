@@ -124,15 +124,26 @@ module TE3270
 
       private
 
+      #
+      # Creates method to wait for specified # of seconds. If no seconds specified, defaults to Timeout value
+      # @param [Fixnum] time in seconds
+      #
+
       def wait_for(seconds = system.TimeoutValue / 1000)
         wait_collection = yield
         wait_collection.Wait(seconds * 1000)
       end
 
+      #
+      # Creates method for the host to wait for the max_wait_time, that is defaulted to '1'
+      #
       def quiet_period
         wait_for_host(max_wait_time)
       end
 
+      #
+      # Creates method to define max_wait_time value = '1'
+      #
       def max_wait_time
         @max_wait_time ||= 1
       end
