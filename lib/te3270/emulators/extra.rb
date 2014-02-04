@@ -3,6 +3,11 @@ require 'win32/screenshot'
 
 module TE3270
   module Emulators
+    #
+    # This class has the code necessary to communicate with the terminal emulator called EXTRA! X-treme.
+    # You can use this emulator by providing the +:extra+ parameter to the constructor of your screen
+    # object or by passing the same value to the +emulator_for+ method on the +TE3270+ module.
+    #
     class Extra
 
       attr_reader :system, :sessions, :session, :screen, :area
@@ -15,8 +20,21 @@ module TE3270
       }
 
       #
-      # Creates a method to connect to Extra System. Closes existing sessions and initiates a new session
-      # Gets the screen object from new session. Selects the screen area
+      # Creates a method to connect to Extra System. This method expects a block in which certain
+      # platform specific values can be set.  Extra can take the following parameters.
+      #
+      # * session_file - this value is required and should be the filename of the session.
+      # * visible - determines if the emulator is visible or not. If not set it will default to true
+      # * window_state - determines the state of the session window.  Valid values are +:minimized+,
+      #   +:normal+, and +:maximized+.  If not set it will default to +:normal+.
+      #
+      # @example Example calling screen object constructor with a block
+      #   screen_object = MyScreenObject.new(:extra)
+      #   screen_object.connect do |emulator|
+      #     emulator.session_file = 'path_to_session_file'
+      #     emulator.visible = true
+      #     emulator.window_state = :maximized
+      #   end
       #
       def connect
         start_extra_system
@@ -36,10 +54,11 @@ module TE3270
       end
 
       #
-      # Creates a method to extract text of specified length from a start point on the extra Screen object.
-      # @param [Fixnum] the x coordinate of location on the screen.
-      # @param [Fixnum] the y coordinate of location on the screen.
-      # @param [Fixnum] the length of string to extract
+      # Extracts text of specified length from a start point.
+      #
+      # @param [Fixnum] row the x coordinate of location on the screen.
+      # @param [Fixnum] column the y coordinate of location on the screen.
+      # @param [Fixnum] length the length of string to extract
       # @return [String]
       #
       def get_string(row, column, length)
@@ -47,11 +66,11 @@ module TE3270
       end
 
       #
-      # Creates a method to put string at the coordinates specified on the extra Screen object.
-      # Once the string is input, quiet period will ensure to not send data for a specified number of milliseconds
-      # @param [String] the string to set
-      # @param [Fixnum] the x coordinate of the location on the screen.
-      # @param [Fixnum] the y coordinate of the location on the screen.
+      # Puts string at the coordinates specified.
+      #
+      # @param [String] str the string to set
+      # @param [Fixnum] row the x coordinate of the location on the screen.
+      # @param [Fixnum] column the y coordinate of the location on the screen.
       #
       def put_string(str, row, column)
         screen.PutString(str, row, column)
@@ -59,9 +78,9 @@ module TE3270
       end
 
       #
-      # Creates a method to send keys to the screen. The keys are defined in function keys
-      # @param [String] the function keys defined by Extra System
-      # Once the string is input, quiet period will ensure to not send data for a specified number of milliseconds
+      # Sends keystrokes to the host, including function keys.
+      #
+      # @param [String] keys keystokes up to 255 in length
       #
       def send_keys(keys)
         screen.SendKeys(keys)
@@ -69,11 +88,11 @@ module TE3270
       end
 
       #
-      # Creates a method to wait for the string to appear at the location
+      # Wait for the string to appear at the specified location
       #
-      # @param [String] the string to wait for
-      # @param [Fixnum] the x coordinate of location
-      # @param [Fixnum] the y coordinate of location
+      # @param [String] str the string to wait for
+      # @param [Fixnum] row the x coordinate of location
+      # @param [Fixnum] column the y coordinate of location
       #
       def wait_for_string(str, row, column)
         wait_for do
@@ -83,7 +102,8 @@ module TE3270
 
       #
       # Waits for the host to not send data for a specified number of seconds
-      # @param [Fixnum] the number of seconds
+      #
+      # @param [Fixnum] seconds the maximum number of seconds to wait
       #
       def wait_for_host(seconds)
         wait_for(seconds) do
@@ -93,8 +113,9 @@ module TE3270
 
       #
       # Waits until the cursor is at the specified location.
-      # @param [Fixnum] the x coordinate of the location
-      # @param [Fixnum] the y coordinate of the location
+      #
+      # @param [Fixnum] row the x coordinate of the location
+      # @param [Fixnum] column the y coordinate of the location
       #
       def wait_until_cursor_at(row, column)
         wait_for do
@@ -103,8 +124,11 @@ module TE3270
       end
 
       #
-      # Creates a method to take screenshot of the active screen
-      # @param [String] the path and name of the screenshot file to be saved
+      # Creates a method to take screenshot of the active screen.  If you have set the +:visible+
+      # property to false it will be made visible prior to taking the screenshot and then changed
+      # to invisible after.
+      #
+      # @param [String] filename the path and name of the screenshot file to be saved
       #
       def screenshot(filename)
         File.delete(filename) if File.exists?(filename)
@@ -115,7 +139,8 @@ module TE3270
       end
 
       #
-      # Creates method to return the text of the active screen
+      # Returns the text of the active screen
+      #
       # @return [String]
       #
       def text
@@ -124,69 +149,31 @@ module TE3270
 
       private
 
-      #
-      # Creates method to wait for specified # of seconds. If no seconds specified, defaults to Timeout value
-      # @param [Fixnum] time in seconds
-      #
-
       def wait_for(seconds = system.TimeoutValue / 1000)
         wait_collection = yield
         wait_collection.Wait(seconds * 1000)
       end
 
-      #
-      # Creates method for the host to wait for the max_wait_time, that is defaulted to '1'
-      #
       def quiet_period
         wait_for_host(max_wait_time)
       end
 
-      #
-      # Creates method to define max_wait_time value = '1'
-      #
       def max_wait_time
         @max_wait_time ||= 1
       end
-
-      #
-      # Creates a method to define window state of the System. Defaults to '1' i.e normal if value not specified
-      # The values are as defined in the hash WINDOW_STATES
-      #
 
       def window_state
         @window_state.nil? ? 1 : WINDOW_STATES[@window_state]
       end
 
-      #
-      # Creates a method that sets visible property of Extra System. If false, the system runs headless
-      # default value is true
-      #
-
       def visible
         @visible.nil? ? true : @visible
       end
-
-
-      #
-      # Creates method to hide the splash screen that pops up when the system starts up
-      # The hide splash screen is implemented only for Extra version > = 9
-      # The method checks for system version and sets the value 'VisibleOnStartup' to true only if version > = 9
-      #
 
       def hide_splash_screen
         version = system.Version
         sessions.VisibleOnStartup = true if version.to_i >= 9
       end
-
-      #
-      # Creates a method to open a session to the Extra System emulator
-      #
-      # Gets the sessions object collection
-      # Hides the splash screen
-      # Creates a session by using the session file
-      # Sets the window state to the value of the window_state property
-      # Sets the visible property on session to the value of visible property
-      #
 
       def open_session
         @sessions = system.Sessions
@@ -195,10 +182,6 @@ module TE3270
         @session.WindowState = window_state
         @session.Visible = visible
       end
-
-      #
-      # Creates a method to start extra system.
-      #
 
       def start_extra_system
         begin
