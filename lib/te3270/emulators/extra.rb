@@ -24,7 +24,7 @@ module TE3270
       # platform specific values can be set.  Extra can take the following parameters.
       #
       # * session_file - this value is required and should be the filename of the session.
-      # * visible - determines if the emulator is visible or not. If not set it will default to true
+      # * visible - determines if the emulator is visible or not. If not set it will default to +true+.
       # * window_state - determines the state of the session window.  Valid values are +:minimized+,
       #   +:normal+, and +:maximized+.  If not set it will default to +:normal+.
       #
