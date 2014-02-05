@@ -25,10 +25,29 @@ require 'te3270/emulators/quick3270'
 #
 #    ...
 #
-#   emulator = TN3270.emulator_for :extra
+#   emulator = TN3270.emulator_for :extra do |emulator|
+#     emulator.session_file = 'path_to_session_file'
+#   end
 #   my_screen = MainframeScreen.new(emulator)
 #   my_screen.userid = 'the_id'
 #   my_screen.password = 'the_password'
+#
+# Another option is to mixin the +TE3270::ScreenFactory+ module on use the factory methods to create the screen
+# objects.  If you are using Cucumber you can do this by calling the +World+ method in your env.rb file.
+#
+# @example Registering the ScreenFactory with Cucumber World
+#   World(TE3270::ScreenFactory)
+#
+#   @emulator = TE3270.emulator_for :quick3270 do |emulator|
+#     emulator.session_file = 'path_to_session_file'
+#   end
+#
+# Now in your step definitions you can simply have the following:
+#
+# @example Using the factory method in a step definition
+#   on(MainframeScreen).do_something
+#
+# @see TE3270::ScreenFactory for more details on using the factory and navigation methods
 #
 module TE3270
   extend FunctionKeys
