@@ -38,8 +38,10 @@ require 'te3270/emulators/quick3270'
 # @example Registering the ScreenFactory with Cucumber World
 #   World(TE3270::ScreenFactory)
 #
-#   @emulator = TE3270.emulator_for :quick3270 do |emulator|
-#     emulator.session_file = 'path_to_session_file'
+#   Before do
+#     @emulator = TE3270.emulator_for :quick3270 do |emulator|
+#       emulator.session_file = 'path_to_session_file'
+#     end
 #   end
 #
 # Now in your step definitions you can simply have the following:
