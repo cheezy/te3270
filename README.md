@@ -7,6 +7,10 @@ Attachmate and [Quick3270](http://www.dn-computing.com/Quick3270.htm) by DN-Comp
 products and you will need to purchase one of them in order to use this gem.  We do plan to support other
 emulators as time permits.
 
+## Documentation
+
+You can view the RDocs for this project [here](http://rdoc.info/github/cheezy/te3270/master/frames).
+
 ## Installation
 
 Add this line to your application's Gemfile:
