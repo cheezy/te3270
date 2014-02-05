@@ -10,14 +10,8 @@ module TE3270
     #
     class Extra
 
-      attr_reader :system, :sessions, :session, :screen, :area
       attr_writer :session_file, :visible, :window_state, :max_wait_time
 
-      WINDOW_STATES = {
-          minimized: 0,
-          normal: 1,
-          maximized: 2
-      }
 
       #
       # Creates a method to connect to Extra System. This method expects a block in which certain
@@ -148,6 +142,14 @@ module TE3270
       end
 
       private
+
+      attr_reader :system, :sessions, :session, :screen, :area
+
+      WINDOW_STATES = {
+          minimized: 0,
+          normal: 1,
+          maximized: 2
+      }
 
       def wait_for(seconds = system.TimeoutValue / 1000)
         wait_collection = yield

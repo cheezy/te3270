@@ -5,7 +5,6 @@ module TE3270
   module Emulators
     class Quick3270
 
-      attr_reader :system, :session, :screen
       attr_writer :session_file, :visible, :max_wait_time
 
       def connect
@@ -64,6 +63,8 @@ module TE3270
       end
 
       private
+
+      attr_reader :system, :session, :screen
 
       def quiet_period
         screen.WaitHostQuiet(max_wait_time)

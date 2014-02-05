@@ -34,7 +34,7 @@ require 'te3270/emulators/quick3270'
 #
 # Another option is to mixin the +TE3270::ScreenFactory+ module on use the factory methods to create the screen
 # objects.  If you are using Cucumber you can do this by calling the +World+ method in your env.rb file.  Then
-# you can use the factory and navigation methods in your step definitions
+# you can use the factory and navigation methods in your step definitions.
 #
 # @example Registering the ScreenFactory with Cucumber World
 #   World(TE3270::ScreenFactory)
@@ -50,7 +50,7 @@ require 'te3270/emulators/quick3270'
 #   on(MainframeScreen).do_something
 #
 #
-# @see #TE3270::ScreenFactory for more details on using the factory and navigation methods
+# @see  #TE3270::ScreenFactory for more details on using the factory and navigation methods
 #
 module TE3270
   extend FunctionKeys
