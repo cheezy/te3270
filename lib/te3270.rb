@@ -55,9 +55,18 @@ require 'te3270/emulators/quick3270'
 module TE3270
   extend FunctionKeys
 
+  #
+  # Gets called when the module is included in the calling class
+  #
+
   def self.included(cls)
     cls.extend TE3270::Accessors
   end
+
+  #
+  # Method for creating a handle to the emulator.
+  #@param platform =[:extra,:quick] use :extra for Extra emulator and :quick for quick emulator
+  #
 
   def self.emulator_for(platform, &block)
     platform_class = TE3270::EmulatorFactory.emulator_for(platform)
@@ -66,46 +75,97 @@ module TE3270
     @platform
   end
 
+  #
+  # Disconnect from the emulator
+  #
+
   def self.disconnect(emulator)
     emulator.disconnect
   end
+
+  #
+  # Constructor method for initializing the emulator state
+  #
 
   def initialize(platform)
     @platform = platform
     initialize_screen if respond_to? :initialize_screen
   end
 
+  #
+  # Set platform value to Extra
+  #
+
   def platform
     @platform ||= Extra.new
   end
+
+  #
+  # Connect to platform (extra or quick)
+  #
 
   def connect
     platform.connect
   end
 
+  #
+  # Disconnect from platform (extra or quick)
+  #
+
   def disconnect
     platform.disconnect
   end
+
+  #
+  # Send keys on the emulator
+  #
 
   def send_keys(keys)
     platform.send_keys(keys)
   end
 
+  #
+  # Retrieves the text from the current screen
+  #
+
   def text
     platform.text
   end
+
+  #
+  # Takes screenshot and saves to the filename specified
+  # @param [String] filename of the file to be saved.
+  #
 
   def screenshot(filename)
     platform.screenshot(filename)
   end
 
+  #
+  # Waits for the string to appear at the specified location
+  # @param [String] String to wait for
+  # @param [FixedNum] row number
+  # @param [FixedNum] column number
+  #
+
   def wait_for_string(str, row, column)
     platform.wait_for_string(str, row, column)
   end
 
+  #
+  # Waits for the host for specified # of seconds. Default is 5 seconds
+  # @param [FixedNum] seconds to wait for
+  #
+
   def wait_for_host(seconds=5)
     platform.wait_for_host(seconds)
   end
+
+  #
+  # Waits for the cursor to appear at the specified location
+  # @param [FixedNum] row number
+  # @param [FixedNum] column number
+  #
 
   def wait_until_cursor_at(row, column)
     platform.wait_until_cursor_at(row, column)
