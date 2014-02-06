@@ -55,19 +55,18 @@ require 'te3270/emulators/quick3270'
 module TE3270
   extend FunctionKeys
 
-  #
-  # Gets called when the module is included in the calling class
-  #
-
   def self.included(cls)
     cls.extend TE3270::Accessors
   end
 
   #
-  # Method for creating a handle to the emulator.
-  #@param platform =[:extra,:quick] use :extra for Extra emulator and :quick for quick emulator
+  # Starts the terminal emulator and makes the connection.  This method requires a block
+  # that has emulator specific information that is necessary to complete the connection.
+  # To know what information you should provide in the block please see the classes in
+  # the TE3270::Emulators package.
   #
-
+  #@param platform =[:extra,:quick3270] use :extra for Extra emulator and :quick3270 for quick emulator
+  #
   def self.emulator_for(platform, &block)
     platform_class = TE3270::EmulatorFactory.emulator_for(platform)
     @platform = platform_class.new
@@ -76,16 +75,11 @@ module TE3270
   end
 
   #
-  # Disconnect from the emulator
+  # Disconnects and closes the emulator
   #
-
   def self.disconnect(emulator)
     emulator.disconnect
   end
-
-  #
-  # Constructor method for initializing the emulator state
-  #
 
   def initialize(platform)
     @platform = platform
@@ -93,17 +87,8 @@ module TE3270
   end
 
   #
-  # Set platform value to Extra
-  #
-
-  def platform
-    @platform ||= Extra.new
-  end
-
-  #
   # Connect to platform (extra or quick)
   #
-
   def connect
     platform.connect
   end
@@ -170,4 +155,11 @@ module TE3270
   def wait_until_cursor_at(row, column)
     platform.wait_until_cursor_at(row, column)
   end
+
+  private
+
+  def platform
+    @platform ||= Extra.new
+  end
+
 end
