@@ -22,7 +22,7 @@ module TE3270
       # * visible - determines if the emulator is visible or not. If not set it will default to +true+.
       #
       # @example Example calling screen object constructor with a block
-      #   screen_object = MyScreenObject.new(:quick)
+      #   screen_object = MyScreenObject.new(:quick3270)
       #   screen_object.connect do |emulator|
       #     emulator.session_file = 'path_to_session_file'
       #     emulator.visible = true
