@@ -138,6 +138,7 @@ module TE3270
       # @return [String]
       #
 
+
       def text
         rows = screen.Rows
         columns = screen.Cols
