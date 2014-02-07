@@ -28,7 +28,6 @@ module TE3270
       #     emulator.visible = true
       #   end
       #
-
       def connect
         start_quick_system
         yield self if block_given?
@@ -39,7 +38,6 @@ module TE3270
       #
       # Disconnects the Quick System connection
       #
-
       def disconnect
         session.Disconnect
         system.Application.Quit
@@ -53,7 +51,6 @@ module TE3270
       # @param [Fixnum] length the length of string to extract
       # @return [String]
       #
-
       def get_string(row, column, length)
         screen.GetString(row, column, length)
       end
@@ -65,7 +62,6 @@ module TE3270
       # @param [Fixnum] row the x coordinate of the location on the screen.
       # @param [Fixnum] column the y coordinate of the location on the screen.
       #
-
       def put_string(str, row, column)
         screen.MoveTo(row, column)
         screen.PutString(str)
@@ -77,7 +73,6 @@ module TE3270
       #
       # @param [String] keys keystokes up to 255 in length
       #
-
       def send_keys(keys)
         screen.SendKeys(keys)
         quiet_period
@@ -90,7 +85,6 @@ module TE3270
       # @param [Fixnum] row the x coordinate of location
       # @param [Fixnum] column the y coordinate of location
       #
-
       def wait_for_string(str, row, column)
         screen.WaitForString(str, row, column)
       end
@@ -100,7 +94,6 @@ module TE3270
       #
       # @param [Fixnum] seconds the maximum number of seconds to wait
       #
-
       def wait_for_host(seconds)
         screen.WaitHostQuiet(seconds * 1000)
       end
@@ -111,7 +104,6 @@ module TE3270
       # @param [Fixnum] row the x coordinate of the location
       # @param [Fixnum] column the y coordinate of the location
       #
-
       def wait_until_cursor_at(row, column)
         screen.WaitForCursor(row, column)
       end
@@ -123,7 +115,6 @@ module TE3270
       #
       # @param [String] filename the path and name of the screenshot file to be saved
       #
-
       def screenshot(filename)
         File.delete(filename) if File.exists?(filename)
         system.Visible = true unless visible
@@ -137,8 +128,6 @@ module TE3270
       #
       # @return [String]
       #
-
-
       def text
         rows = screen.Rows
         columns = screen.Cols

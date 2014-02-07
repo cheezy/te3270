@@ -87,7 +87,9 @@ module TE3270
   end
 
   #
-  # Connect to platform (extra or quick)
+  # Open a new screen and connect to the host.  Platform specific values are set by
+  # passing a block to this method.  To see the valid platform specific values please
+  # read the documentation for your emulator class in the TE3270::Emulators module.
   #
   def connect
     platform.connect
@@ -96,7 +98,6 @@ module TE3270
   #
   # Disconnect from platform (extra or quick)
   #
-
   def disconnect
     platform.disconnect
   end
@@ -104,7 +105,6 @@ module TE3270
   #
   # Send keys on the emulator
   #
-
   def send_keys(keys)
     platform.send_keys(keys)
   end
@@ -112,46 +112,47 @@ module TE3270
   #
   # Retrieves the text from the current screen
   #
-
   def text
     platform.text
   end
 
   #
-  # Takes screenshot and saves to the filename specified
+  # Takes screenshot and saves to the filename specified.  If you have visibility set to false
+  # then this method will first of all make the screen visible, take the screenshot, and then
+  # make set visibility to false again.
+  #
   # @param [String] filename of the file to be saved.
   #
-
   def screenshot(filename)
     platform.screenshot(filename)
   end
 
   #
   # Waits for the string to appear at the specified location
+  #
   # @param [String] String to wait for
   # @param [FixedNum] row number
   # @param [FixedNum] column number
   #
-
   def wait_for_string(str, row, column)
     platform.wait_for_string(str, row, column)
   end
 
   #
   # Waits for the host for specified # of seconds. Default is 5 seconds
+  #
   # @param [FixedNum] seconds to wait for
   #
-
   def wait_for_host(seconds=5)
     platform.wait_for_host(seconds)
   end
 
   #
   # Waits for the cursor to appear at the specified location
+  #
   # @param [FixedNum] row number
   # @param [FixedNum] column number
   #
-
   def wait_until_cursor_at(row, column)
     platform.wait_until_cursor_at(row, column)
   end
