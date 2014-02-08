@@ -16,7 +16,6 @@ module TE3270
     # @param [FixedNum] length of the text field
     # @param [true|false] editable is by default true
     #
-
   def text_field(name, row, column, length, editable=true)
       define_method(name) do
         platform.get_string(row, column, length)

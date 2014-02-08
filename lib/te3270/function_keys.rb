@@ -1,5 +1,13 @@
 
 module TE3270
+  #
+  # Creates methods that are mixed in with the +TE3270+ module that represent all of the
+  # function keys that can be send to the system.  These keys would typically be sent to
+  # the +send_keys_ method.
+  #
+  # @example Using a function key
+  #   on(MyScreen).send_keys TE3270.Enter
+  #
   module FunctionKeys
 
     KEYS = [

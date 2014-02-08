@@ -2,6 +2,10 @@ require 'te3270/emulators/extra'
 require 'te3270/emulators/quick3270'
 
 module TE3270
+  #
+  # Provides a mapping between a key used in the +emulator_for+ method
+  # and the class that implements the access to the emulator.
+  #
   module EmulatorFactory
 
     EMULATORS = {
