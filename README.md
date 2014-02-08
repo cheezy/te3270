@@ -9,7 +9,7 @@ emulators as time permits.
 
 ## Documentation
 
-You can view the RDocs for this project [here](http://rdoc.info/github/cheezy/te3270/master/frames).
+You can view the RDocs for this project [here](http://rdoc.info/gems/te3270/frames).
 
 ## Installation
 
