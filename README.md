@@ -77,6 +77,17 @@ or you can use the version of `on` that takes a block like this:
       screen.password = 'the_password'
     end
 
+There is also a way to pass in a `Hash` and have it populate an entire screen.  Just simply
+ensure the key for an entry in the `Hash` matches the name you gave a text field and it will
+find and set the value.  This allows the gem to easily work with the DataMagic gem.
+
+    # given this Hash
+    my_date = { userid: 'the_id', password: 'the_password' }
+
+    # you can simply call this method
+    on(MainframeScreen).populate_screen_with my_data
+
+
 ## Contributing
 
 1. Fork it
