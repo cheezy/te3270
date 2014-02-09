@@ -1,4 +1,4 @@
-=== Version 0.2
+=== Version 0.2 / 2014-2-9
 * Enhancements
   * Added populate_screen_with method to TE3270 to populate all fields that are included in provided Hash
 
