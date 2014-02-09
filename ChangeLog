@@ -1,2 +1,6 @@
+=== Version 0.2
+* Enhancements
+  * Added populate_screen_with method to TE3270 to populate all fields that are included in provided Hash
+
 === Version 0.1 / 2014-2-7
 * Initial release with basic functionality for EXTRA X-treme! and Quick3270

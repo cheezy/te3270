@@ -1,6 +1,7 @@
 require 'te3270/version'
 require 'te3270/accessors'
 require 'te3270/screen_factory'
+require 'te3270/screen_populator'
 require 'te3270/function_keys'
 require 'te3270/emulator_factory'
 require 'te3270/emulators/extra'
@@ -53,6 +54,7 @@ require 'te3270/emulators/quick3270'
 # @see  #TE3270::ScreenFactory for more details on using the factory and navigation methods
 #
 module TE3270
+  include ScreenPopulator
   extend FunctionKeys
 
   def self.included(cls)
