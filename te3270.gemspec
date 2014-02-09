@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = TE3270::VERSION
   spec.platform      = Gem::Platform::CURRENT
   spec.authors       = ["Jeffrey S. Morgan","Pradeep K. Macharla"]
-  spec.email         = ["jeff.morgan@leandog.com","macharla.pradeep.kumar@gmail.com"]
+  spec.email = ["jeff.morgan@leandog.com", "pradeep@seleniumframework.com"]
   spec.description   = %q{Automates a 3270 Terminal Emulator}
   spec.summary       = %q{Automates a 3270 Terminal Emulator}
   spec.homepage      = "http://github.com/cheezy/te3270"
