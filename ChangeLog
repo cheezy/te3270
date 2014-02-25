@@ -1,6 +1,6 @@
-=== Version 0.3
+=== Version 0.3 / 2014-2-25
 * Enhancements
-  * disconnect does not close all open sessions now - only the one that connect opened
+  * disconnect does not close all open sessions with Extra now - only the one that connect opened
 
 === Version 0.2 / 2014-2-9
 * Enhancements
