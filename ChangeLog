@@ -1,3 +1,7 @@
+=== Version 0.3
+* Enhancements
+  * disconnect does not close all open sessions now - only the one that connect opened
+
 === Version 0.2 / 2014-2-9
 * Enhancements
   * Added populate_screen_with method to TE3270 to populate all fields that are included in provided Hash
