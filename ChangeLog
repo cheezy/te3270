@@ -1,3 +1,7 @@
+=== Version 0.4 / 2014-2-26
+* Enhancements
+  * calling super when factory method called with class that is not from TE3270
+
 === Version 0.3 / 2014-2-25
 * Enhancements
   * disconnect does not close all open sessions with Extra now - only the one that connect opened
