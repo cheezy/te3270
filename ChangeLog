@@ -1,3 +1,7 @@
+=== Version 0.4.1 / 2014-2-26
+* Fixes
+  * Fixed small issue with ordering of events in last release
+
 === Version 0.4 / 2014-2-26
 * Enhancements
   * calling super when factory method called with class that is not from TE3270
