@@ -1,6 +1,3 @@
-require 'win32ole'
-require 'win32/screenshot'
-
 module TE3270
   module Emulators
     #
@@ -12,6 +9,23 @@ module TE3270
 
       attr_writer :session_file, :visible, :window_state, :max_wait_time
 
+
+      def initialize
+        if jruby?
+          require 'jruby-win32ole'
+          require 'java'
+          include_class 'java.awt.Dimension'
+          include_class 'java.awt.Rectangle'
+          include_class 'java.awt.Robot'
+          include_class 'java.awt.Toolkit'
+          include_class 'java.awt.event.InputEvent'
+          include_class 'java.awt.image.BufferedImage'
+          include_class 'javax.imageio.ImageIO'
+        else
+          require 'win32ole'
+          require 'win32/screenshot'
+        end
+      end
 
       #
       # Creates a method to connect to Extra System. This method expects a block in which certain
@@ -127,8 +141,20 @@ module TE3270
       def screenshot(filename)
         File.delete(filename) if File.exists?(filename)
         session.Visible = true unless visible
-        hwnd = session.WindowHandle
-        Win32::Screenshot::Take.of(:window, hwnd: hwnd).write(filename)
+
+        if jruby?
+          toolkit = Toolkit::getDefaultToolkit()
+          screen_size = toolkit.getScreenSize()
+          rect = Rectangle.new(screen_size)
+          robot = Robot.new
+          image = robot.createScreenCapture(rect)
+          f = java::io::File.new(filename)
+          ImageIO::write(image, "png", f)
+        else
+          hwnd = session.WindowHandle
+          Win32::Screenshot::Take.of(:window, hwnd: hwnd).write(filename)
+        end
+
         session.Visible = false unless visible
       end
 
@@ -191,6 +217,10 @@ module TE3270
         rescue Exception => e
           $stderr.puts e
         end
+      end
+
+      def jruby?
+        RUBY_PLATFORM == 'java'
       end
     end
   end
