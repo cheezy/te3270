@@ -58,7 +58,7 @@ module TE3270
       # Disconnects the Extra System connection
       #
       def disconnect
-        system.Quit
+        session.Close
       end
 
       #

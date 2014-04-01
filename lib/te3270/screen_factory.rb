@@ -39,6 +39,7 @@ module TE3270
     # @return [ScreenObject] the newly created screen object
     #
     def on(screen_class, &block)
+      return super(screen_class, &block) unless screen_class.ancestors.include? TE3270
       raise '@emulator instance variable must be available to use the ScreenFactory methods' unless @emulator
       @current_screen = screen_class.new @emulator
       block.call @current_screen if block
