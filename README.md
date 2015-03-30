@@ -56,7 +56,7 @@ cucumber World like this:
 
 You also need to setup some hooks to start and stop the emulator:
 
-    Begin do
+    Before do
       @emulator = TE3270.emulator_for :extra do |platform|
         platform.session_file = 'sessionfile.edp'
       end
