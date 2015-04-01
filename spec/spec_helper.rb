@@ -4,6 +4,12 @@ require 'te3270'
 require 'win32ole'
 require 'win32/screenshot'
 
+RSpec.configure do |config|
+  config.mock_with :rspec do |mocks|
+    mocks.syntax = :should
+  end
+end
+
 def extra_system
   @extra_system ||= double('system')
   @extra_system.stub(:Sessions).and_return extra_sessions
@@ -59,3 +65,7 @@ def quick_screen
   @quick_screen
 end
 
+def x3270_system
+  @x3270_system ||= double('x3270_system')
+  @x3270_system
+end

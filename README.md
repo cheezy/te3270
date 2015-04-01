@@ -1,11 +1,13 @@
 # TE3270
 
 This gem can be used to drive a 3270 terminal emulator.  You have to have a supported emulator installed on the
-machines on which you use the gem.  Currently the only supported emulators are
+machines on which you use the gem.  Currently the supported emulators are
 [EXTRA! X-treme](http://www.attachmate.com/Products/Terminal+Emulation/Extra/xtreme/extra-x-treme.htm) by
-Attachmate and [Quick3270](http://www.dn-computing.com/Quick3270.htm) by DN-Computing.  These are commercial
-products and you will need to purchase one of them in order to use this gem.  We do plan to support other
-emulators as time permits.
+Attachmate, [Quick3270](http://www.dn-computing.com/Quick3270.htm) by DN-Computing,
+and [X3270](http://x3270.bgp.nu/).
+The first two are commercial products and need to be purchased.
+X3270 is open source. Support for other
+emulators will be added as time permits.
 
 ## Documentation
 
@@ -64,6 +66,17 @@ You also need to setup some hooks to start and stop the emulator:
 
     After do
       TE3270.disconnect(@emulator)
+    end
+
+The X3270 emulator supports these hooks:
+
+    Before do
+      @emulator = TE3270.emulator_for :x3270 do |platform|
+        platform.executable_command = 'path to the x3270 executable'
+        platform.host = 'name of host to connect to'
+        platform.max_wait_time = 42  # defaults to 10
+        platform.trace = true # turns on trace output from the emulator
+      end
     end
 
 This allows you to use the `on` method in your step definitions like this:
