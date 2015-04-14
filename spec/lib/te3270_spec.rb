@@ -72,7 +72,7 @@ describe TE3270 do
     end
 
     it 'should call initialize_screen if it exists' do
-      screen_object.initialize_screen.should be_true
+      screen_object.initialize_screen.should be true
     end
 
     it 'should create an emulator and connect to terminal' do
