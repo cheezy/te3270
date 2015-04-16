@@ -43,6 +43,6 @@ describe TE3270::ScreenFactory do
     emulator = double('platform')
     world.instance_variable_set('@emulator', emulator)
     world.on(NoTE)
-    world.super_called.should be_true
+    world.super_called.should be true
   end
 end
