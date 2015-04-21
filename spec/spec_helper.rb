@@ -1,8 +1,10 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 require 'te3270'
-require 'win32ole'
-require 'win32/screenshot'
+if Gem.win_platform?
+  require 'win32ole'
+  require 'win32/screenshot'
+end
 
 RSpec.configure do |config|
   config.mock_with :rspec do |mocks|

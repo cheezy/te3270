@@ -1,5 +1,7 @@
-require 'win32ole'
-require 'win32/screenshot'
+if Gem.win_platform?
+  require 'win32ole'
+  require 'win32/screenshot'
+end
 
 module TE3270
   module Emulators
