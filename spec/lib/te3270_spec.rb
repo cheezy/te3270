@@ -72,7 +72,7 @@ describe TE3270 do
     end
 
     it 'should call initialize_screen if it exists' do
-      screen_object.initialize_screen.should be_true
+      screen_object.initialize_screen.should be true
     end
 
     it 'should create an emulator and connect to terminal' do
@@ -81,14 +81,16 @@ describe TE3270 do
       TE3270.emulator_for :extra
     end
 
-    it 'should accept a block when creating an emulator' do
-      WIN32OLE.stub(:new).and_return extra_system
-      extra_sessions.should_receive(:Open).with('blah.edp').and_return(extra_session)
-      TE3270.emulator_for :extra do |emulator|
-        emulator.session_file = 'blah.edp'
+    if Gem.win_platform?
+      it 'should accept a block when creating an emulator' do
+        WIN32OLE.stub(:new).and_return extra_system
+        extra_sessions.should_receive(:Open).with('blah.edp').and_return(extra_session)
+        TE3270.emulator_for :extra do |emulator|
+          emulator.session_file = 'blah.edp'
+        end
       end
     end
-
+    
     it 'should allow one to disconnect using the module' do
       platform.should_receive(:disconnect)
       TE3270.disconnect(platform)

@@ -4,8 +4,6 @@ require 'te3270/screen_factory'
 require 'te3270/screen_populator'
 require 'te3270/function_keys'
 require 'te3270/emulator_factory'
-require 'te3270/emulators/extra'
-require 'te3270/emulators/quick3270'
 
 #
 # This gem can be used to drive a 3270 terminal emulator.  You have to have a supported emulator installed on the

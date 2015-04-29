@@ -1,8 +1,16 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 require 'te3270'
-require 'win32ole'
-require 'win32/screenshot'
+if Gem.win_platform?
+  require 'win32ole'
+  require 'win32/screenshot'
+end
+
+RSpec.configure do |config|
+  config.mock_with :rspec do |mocks|
+    mocks.syntax = :should
+  end
+end
 
 def extra_system
   @extra_system ||= double('system')
@@ -59,3 +67,7 @@ def quick_screen
   @quick_screen
 end
 
+def x3270_system
+  @x3270_system ||= double('x3270_system')
+  @x3270_system
+end
