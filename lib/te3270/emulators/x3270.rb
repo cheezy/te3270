@@ -71,7 +71,7 @@ module TE3270
       #
       def put_string(str, row, column)
         x_send_no_rsp "MoveCursor(#{row-1},#{column-1})"
-        x_send_no_rsp 'string "' + str.gsub('"', '\\"') + '"'
+        x_send_no_rsp 'string "' + str.to_s.gsub('"', '\\"') + '"'
       end
 
       #
