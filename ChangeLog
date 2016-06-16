@@ -1,3 +1,6 @@
+=== Version 0.7.0 / 2016/6/16
+* Added support for x3279 to accept a port number (Thanks Nithin Reddy)
+
 === Version 0.6.0 / 2015/4/21
 * Platform Independent Release
 
