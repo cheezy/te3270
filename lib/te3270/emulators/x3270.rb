@@ -9,7 +9,7 @@ module TE3270
     #
     class X3270
 
-      attr_writer :executable_command, :host, :max_wait_time, :trace
+      attr_writer :executable_command, :host, :max_wait_time, :trace , :port
 
       #
       # Creates a method to connect to x3270. This method expects a block in which certain
@@ -24,15 +24,18 @@ module TE3270
       #   screen_object.connect do |emulator|
       #     emulator.executable_command = 'path_to_executable'
       #     emulator.host = 'host.example.com'
+      #     emulator.port = 23
       #     emulator.max_wait_time = 5
       #   end
       #
       def connect
         @max_wait_time = 10
         @trace = false
+        @port = 23
         yield self if block_given?
         raise 'The executable command must be set in a block when calling connect with the X3270 emulator.' if @executable_command.nil?
         raise 'The host must be set in a block when calling connect with the X3270 emulator.' if @host.nil?
+
         start_x3270_system
       end
 
@@ -172,9 +175,9 @@ module TE3270
         begin
           args = [
               "-model", "2",
-              ""
+              "", "-port"
           ]
-          cmd = "#{@executable_command} #{args.join " "} #{@host}"
+          cmd = "#{@executable_command} #{args.join " "} #{@port} #{@host}"
           @x3270_input, @x3270_output, @x3270_thr = Open3.popen2e(cmd)
         rescue Exception => e
           raise "Could not start x3270 '#{@executable_command}': #{e}"

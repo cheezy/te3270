@@ -41,6 +41,13 @@ describe TE3270::Emulators::X3270 do
       end
     end
 
+    it 'should take the connection port from a block' do
+      x3270.should_receive(:port=).with(3270)
+      x3270.connect do |platform|
+        platform.port = 3270
+      end
+    end
+
     it 'should display an error when the path to the executable is not set' do
       x3270.instance_variable_set(:@executable_command, nil)
       expect { x3270.connect }.to raise_error('The executable command must be set in a block when calling connect with the X3270 emulator.')
@@ -55,6 +62,11 @@ describe TE3270::Emulators::X3270 do
       #x3270.should_receive(:max_wait_time=).with(10)
       x3270.connect
       x3270.instance_variable_get(:@max_wait_time).should eq(10)
+    end
+
+    it 'should default to port being 23 when not provided' do
+      x3270.connect
+      x3270.instance_variable_get(:@port).should eq(23)
     end
 
     it 'should display an error when cannot popen supplied x3270 program' do
