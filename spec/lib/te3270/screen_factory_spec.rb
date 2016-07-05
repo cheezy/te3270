@@ -22,14 +22,14 @@ describe TE3270::ScreenFactory do
   it 'should create a new screen object' do
     emulator = double('platform')
     world.instance_variable_set('@emulator', emulator)
-    world.on(ScreenFactoryScreen).should be_instance_of ScreenFactoryScreen
+    expect(world.on(ScreenFactoryScreen)).to be_instance_of ScreenFactoryScreen
   end
 
   it 'should create a new screen object and execute a block' do
     emulator = double('platform')
     world.instance_variable_set('@emulator', emulator)
     world.on(ScreenFactoryScreen) do |page|
-      page.should be_instance_of ScreenFactoryScreen
+      expect(page).to be_instance_of ScreenFactoryScreen
     end
   end
 
@@ -43,6 +43,6 @@ describe TE3270::ScreenFactory do
     emulator = double('platform')
     world.instance_variable_set('@emulator', emulator)
     world.on(NoTE)
-    world.super_called.should be true
+    expect(world.super_called).to be true
   end
 end
