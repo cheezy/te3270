@@ -16,10 +16,15 @@ begin
 rescue => e
   warn "#{$0}: #{e}"
   exit!
-end  
+end
 
 puts "Writing fake Rakefile"
+begin
 # Write fake Rakefile for rake since Makefile isn't used - indicates success
-File.open(File.join(File.dirname(__FILE__), 'Rakefile'), 'w') do |f|
-  f.write("task :default" + $/)
+  File.open(File.join(File.dirname(__FILE__), 'Rakefile'), 'w') do |f|
+    f.write("task :default" + $/)
+  end
+rescue => e
+  warn "#{$0}: #{e}"
+  exit!
 end
