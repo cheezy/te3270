@@ -1,3 +1,6 @@
+=== Version 0.7.1 / 2016/7/5
+* Enhanced the native portion of installation by added messages and warnings
+
 === Version 0.7.0 / 2016/6/16
 * Added support for x3279 to accept a port number (Thanks Nithin Reddy)
 
