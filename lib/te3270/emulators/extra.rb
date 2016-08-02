@@ -73,6 +73,59 @@ module TE3270
         screen.GetString(row, column, length)
       end
 
+
+      #___________________________________________
+
+      #
+      # Send File Method 
+      #
+      # @param [String]     filePath Full file path of Local file
+      # @param [String]     fileHost Name of the Mainframe file
+      # @param [Bool]       showHostDialog Show File transfer dialog or not
+      #
+      def send_Host_File(filePath, fileHost, showHostDialog)
+
+          begin
+              if showHostDialog != true
+                showHostDialog = false
+              end
+          rescue
+                showHostDialog = false
+          end
+          
+          session.FileTransferScheme = "Text Default"
+          session.FileTransferHostOS = 1 # For TSO transfer Default
+          session.SendFile(filePath, fileHost, showHostDialog)
+          quiet_period
+
+      end
+
+
+      #
+      # Receive File Method
+      #
+      # @param [String]     filePath Full file path of Local file
+      # @param [String]     fileHost Name of the Mainframe file
+      # @param [Bool]       showHostDialog Show File transfer dialog or not
+      #
+      def recv_Host_File(filePath, fileHost, showHostDialog)
+
+          begin
+              if showHostDialog != true
+                showHostDialog = false
+              end
+          rescue
+                showHostDialog = false
+          end
+
+          session.FileTransferScheme = "Text Default"
+          session.FileTransferHostOS = 1 # For TSO transfer Default
+          session.ReceiveFile(filePath, fileHost, showHostDialog)
+          quiet_period
+
+      end
+
+      #___________________________________________
       #
       # Puts string at the coordinates specified.
       #
