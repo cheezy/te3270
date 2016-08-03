@@ -146,7 +146,7 @@ module TE3270
         end
       end
 
-      # Send File Method: Support for Test TSO uploads only
+      # Send File Method: Support for Text TSO uploads only
       #
       # @param [String]     filePath Full file path of Local file
       # @param [String]     fileHost Name of the Mainframe file
@@ -161,7 +161,7 @@ module TE3270
       end
 
       #
-      # Receive File Method: Support for Test TSO Downloads only
+      # Receive File Method: Support for Text TSO Downloads only
       #
       # @param [String]     filePath Full file path of Local file
       # @param [String]     fileHost Name of the Mainframe file
