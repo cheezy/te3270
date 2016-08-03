@@ -137,12 +137,12 @@ module TE3270
       #
       def  set_Show_Host_Dialog(showHostDialog_Received)
         begin
-          if showHostDialog != true
-            return showHostDialog = false
+          if showHostDialog_Received != true
+            return false
           end
-          return showHostDialog = true
+          return true
         rescue
-          return showHostDialog = false
+          return false
         end
       end
 
