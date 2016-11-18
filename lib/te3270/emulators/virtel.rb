@@ -93,9 +93,16 @@ module TE3270
       # @param [String] keys keystokes up to 255 in length
       #
       def send_keys(keys)
-        @browser.execute_script <<-JS
-          sendWithSpecialKey("#{keys}");
-        JS
+        char_input_keys = ['ErEof','Reset']
+        if char_input_keys.include?(keys)
+          @browser.execute_script <<-JS
+            VIR3270.charInput("#{keys}");
+          JS
+        else
+          @browser.execute_script <<-JS
+            sendWithSpecialKey("#{keys}");
+          JS
+        end
         quiet_period
       end
 
