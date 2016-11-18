@@ -1,5 +1,6 @@
 === Version 0.8.1 / 2016/11/17
-* Added support for Virtel driver
+* Enhancements
+ * Added support for Virtel driver
 
 === Version 0.7.1 / 2016/7/5
 * Enhanced the native portion of installation by added messages and warnings
