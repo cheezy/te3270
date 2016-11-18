@@ -7,8 +7,9 @@ require 'te3270/emulator_factory'
 
 #
 # This gem can be used to drive a 3270 terminal emulator.  You have to have a supported emulator installed on the
-# machines on which you use the gem.  Currently the only supported emulators are EXTRA! X-treme by Attachmate and
-# Quick3270 by DN-Computing.  These are commercial products and you will need to purchase one of them in order to
+# machines on which you use the gem.  Currently the supported emulators are EXTRA! X-treme by Attachmate,
+# Quick3270 by DN-Computing, Virtel Web Access and X3270.  These are commercial products, with the exception of X3270,
+# and you will need to purchase one of them in order to
 # use this gem.  We do plan to support other emulators as time permits.
 #
 # This gem has been designed to work very similar to the page-object gem.  You will use it to create screen objects
@@ -65,7 +66,8 @@ module TE3270
   # To know what information you should provide in the block please see the classes in
   # the TE3270::Emulators package.
   #
-  #@param platform =[:extra,:quick3270] use :extra for Extra emulator and :quick3270 for quick emulator
+  #@param platform =[:extra,:quick3270, :virtel] use :extra for Extra emulator, :quick3270 for quick emulator, :virtel
+  #for Virtel Web access, and :x3270 for X3270
   #
   def self.emulator_for(platform, &block)
     platform_class = TE3270::EmulatorFactory.emulator_for(platform)
