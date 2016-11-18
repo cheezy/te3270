@@ -7,8 +7,8 @@ Gem::Specification.new do |spec|
   spec.name          = "te3270"
   spec.version       = TE3270::VERSION
   spec.platform      = Gem::Platform::RUBY
-  spec.authors       = ["Jeffrey S. Morgan", "Nithin C. Reddy", "Glenn W. Waters", "Thrivikrama Madiraju", "David West"]
-  spec.email         = ["jeff.morgan@leandog.com","nithinreddyc@gmail.com", "gwwaters@gmail.com", "akmadiraju@yahoo.com", "david.b.west@gmail.com"]
+  spec.authors       = ["Jeffrey S. Morgan", "Nithin C. Reddy", "Glenn W. Waters", "Thrivikrama Madiraju", "David West", "Jonathan Flatt"]
+  spec.email         = ["jeff.morgan@leandog.com","nithinreddyc@gmail.com", "gwwaters@gmail.com", "akmadiraju@yahoo.com", "david.b.west@gmail.com", "c-flattj@grangeinsurance.com"]
   spec.description   = %q{Automates a 3270 Terminal Emulator}
   spec.summary       = %q{Automates a 3270 Terminal Emulator}
   spec.homepage      = "http://github.com/cheezy/te3270"
