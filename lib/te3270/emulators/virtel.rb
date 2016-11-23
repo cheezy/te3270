@@ -53,7 +53,7 @@ module TE3270
       #
       def get_string(row, column, length)
         @browser.execute_script <<-JS
-          return VIR3270.getBoxedText("#{row}", "#{column}", 1, "#{length}");
+          return VIR3270.collectText("#{row}", "#{column}", 1, "#{length}");
         JS
       end
 
