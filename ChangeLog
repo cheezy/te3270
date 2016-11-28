@@ -1,3 +1,7 @@
+=== Version 0.8.1 / 2016-11-28
+* Fixes
+  * Fixed get_string method for Virtel
+
 === Version 0.8.0 / 2016-11-22 (Thanks David West)
 * Enhancements
  * Added support for Virtel driver
