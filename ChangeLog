@@ -1,6 +1,8 @@
 === Version 0.9.0
 * Enhancements
  * Added list_view Accessor
+* Fixes
+ * Fix #get_string for Virtel driver
 
 === Version 0.8.0 / 2016-11-22 (Thanks David West)
 * Enhancements
