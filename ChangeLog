@@ -1,6 +1,8 @@
-=== Version 0.8.1 / 2016-11-28
+=== Version 0.8.1 / 2017-03-06
 * Fixes
   * Fixed get_string method for Virtel (Thanks David West)
+  * Support for uploading a file with Extra (Thanks kumzme)
+  * Updated dependency from watir-webdriver to watir
 
 === Version 0.8.0 / 2016-11-22
 * Enhancements
