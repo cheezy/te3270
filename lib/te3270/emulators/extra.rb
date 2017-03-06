@@ -132,6 +132,51 @@ module TE3270
       end
 
       #
+      # Set Dialog True or False
+      # @param [Bool]     True or False - Show or Hide Dialog Default False
+      #
+      def  set_Show_Host_Dialog(showHostDialog_Received)
+        begin
+          if showHostDialog_Received != true
+            return false
+          end
+          return true
+        rescue
+          return false
+        end
+      end
+
+      # Send File Method: Support for Text TSO uploads only
+      #
+      # @param [String]     filePath Full file path of Local file
+      # @param [String]     fileHost Name of the Mainframe file
+      # @param [Bool]       showHostDialog Show File transfer dialog or not
+      #
+      def send_Host_File(filePath, fileHost, showHostDialog_Passed)
+        create_Show_Dialog = set_Show_Host_Dialog(showHostDialog_Passed)
+        session.FileTransferScheme = "Text Default"
+        session.FileTransferHostOS = 1 # For TSO transfer Default
+        session.SendFile(filePath, fileHost, create_Show_Dialog)
+        quiet_period
+      end
+
+      #
+      # Receive File Method: Support for Text TSO Downloads only
+      #
+      # @param [String]     filePath Full file path of Local file
+      # @param [String]     fileHost Name of the Mainframe file
+      # @param [Bool]       showHostDialog Show File transfer dialog or not
+      #
+      def recv_Host_File(filePath, fileHost, showHostDialog_Passed)
+        create_Show_Dialog = set_Show_Host_Dialog(showHostDialog_Passed)
+        session.FileTransferScheme = "Text Default"
+        session.FileTransferHostOS = 1 # For TSO transfer Default
+        session.ReceiveFile(filePath, fileHost, create_Show_Dialog)
+        quiet_period
+      end
+
+
+      #
       # Creates a method to take screenshot of the active screen.  If you have set the +:visible+
       # property to false it will be made visible prior to taking the screenshot and then changed
       # to invisible after.
