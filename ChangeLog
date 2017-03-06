@@ -1,10 +1,10 @@
 === Version 0.8.1 / 2016-11-28
 * Fixes
-  * Fixed get_string method for Virtel
+  * Fixed get_string method for Virtel (Thanks David West)
 
-=== Version 0.8.0 / 2016-11-22 (Thanks David West)
+=== Version 0.8.0 / 2016-11-22
 * Enhancements
- * Added support for Virtel driver
+ * Added support for Virtel driver (Thanks David West)
 
 === Version 0.7.1 / 2016/7/5
 * Enhanced the native portion of installation by added messages and warnings
