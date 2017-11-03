@@ -10,7 +10,11 @@ module TE3270
     class X3270
 
       attr_writer :executable_command, :host, :max_wait_time, :trace , :port, :model
-      
+
+      def initialize
+        @models = {2 => 24*80, 3 => 32*80}
+      end
+
       #
       # Creates a method to connect to x3270. This method expects a block in which certain
       # platform specific values can be set.  Extra can take the following parameters.
@@ -147,10 +151,7 @@ module TE3270
       # @return [String]
       #
       def text
-        length = 24*80
-        if @model == 3 then
-           length = 32*80
-        end
+        length = @models[@model]
         get_string(1,1,length)
       end
 
