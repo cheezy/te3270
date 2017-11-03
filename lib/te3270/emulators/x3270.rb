@@ -12,7 +12,7 @@ module TE3270
       attr_writer :executable_command, :host, :max_wait_time, :trace , :port, :model
 
       def initialize
-        @models = {2 => 24*80, 3 => 32*80, 4 => 43*80}
+        @models = {2 => 24*80, 3 => 32*80, 4 => 43*80, 5 => 27*132}
       end
 
       #

@@ -204,5 +204,14 @@ describe TE3270::Emulators::X3270 do
       expect(x3270.text).to eql 'string'
     end
 
+    it 'should get all text from model 5 screen' do
+      expect(@x3270_io).to receive(:print).with("ascii(0,0,3564)\n")
+      expect(@x3270_io).to receive(:gets).and_return('data: string','goo','ok')
+      x3270.connect do |emulator|
+        emulator.model = 5
+      end
+      expect(x3270.text).to eql 'string'
+    end
+
   end
 end
