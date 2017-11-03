@@ -41,6 +41,7 @@ module TE3270
         yield self if block_given?
         raise 'The executable command must be set in a block when calling connect with the X3270 emulator.' if @executable_command.nil?
         raise 'The host must be set in a block when calling connect with the X3270 emulator.' if @host.nil?
+        raise 'The model should be one of 1, 2, 3, 4 or 5.' if not @models.key?(@model)
 
         start_x3270_system
       end
