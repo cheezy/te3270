@@ -216,7 +216,7 @@ describe TE3270::Emulators::X3270 do
     it 'should display an error when an unsupported display model is set' do
       expect { x3270.connect do |emulator|
         emulator.model = -1
-      end }.to raise_error('The model should be one of 1, 2, 3, 4 or 5.')
+      end }.to raise_error('The model should be one of 2, 3, 4 or 5.')
     end
 
 
