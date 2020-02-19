@@ -16,7 +16,8 @@ module TE3270
                   :max_column_length,
                   :max_wait_time,
                   :session_id,
-                  :session_file
+                  :session_file,
+                  :timeout
 
       #
       # Initialize the emulator with defaults. This also loads libraries used
@@ -28,6 +29,7 @@ module TE3270
         @max_wait_time = 1000
         @session_file = nil
         @session_id = 1
+        @timeout = 10
         @visible = true
         @window_state = :normal
 
@@ -56,6 +58,7 @@ module TE3270
       # * max_wait_time - number of milliseconds to wait before resuming script execution after sending keys from host
       # * session_file - this value is required and should be the filename of the session.
       # * session_id - numeric identifer for type of session to connect to. From BlueZone's docs: +1 for S1: 2 for S2; 3 for S3; etc.+ Defaults to +1+.
+      # * timeout - numeric number of seconds till system calls timeout. Defaults to +10+.
       # * visible - determines if the emulator is visible or not. If not set it will default to +true+.
       # * window_state - determines the state of the session window.  Valid values are +:minimized+,
       #   +:normal+, and +:maximized+.  If not set it will default to +:normal+.
@@ -73,7 +76,7 @@ module TE3270
         yield self if block_given?
         raise SessionFileMissingError if @session_file.nil?
 
-        result = system.OpenSession(SESSION_TYPE[:Mainframe], @session_id, @session_file, 10, 1)
+        result = system.OpenSession(SESSION_TYPE[:Mainframe], @session_id, @session_file, @timeout, 1)
         raise BlueZoneError, "Error opening session: #{result}; #{@session_file}" if result != 0
 
         result = system.Connect('!', @connect_retry_timeout)
@@ -112,7 +115,7 @@ module TE3270
       #
       def put_string(str, row, column)
         system.WriteScreen(str, row, column)
-        system.WaitReady(10, @max_wait_time)
+        system.WaitReady(@timeout, @max_wait_time)
       end
 
       #
@@ -150,7 +153,7 @@ module TE3270
       #
       def send_keys(keys)
         system.SendKey(keys)
-        system.WaitReady(10, @max_wait_time)
+        system.WaitReady(@timeout, @max_wait_time)
       end
 
       #
@@ -192,7 +195,7 @@ module TE3270
       # @param [Fixnum] column the y coordinate of location
       #
       def wait_for_string(str, row, column)
-        system.WaitForText(str, row, column, 10)
+        system.WaitForText(str, row, column, @timeout)
       end
 
       #
@@ -202,7 +205,7 @@ module TE3270
       # @param [Fixnum] column the y coordinate of the location
       #
       def wait_until_cursor_at(row, column)
-        system.WaitCursor(10, row, column, 3)
+        system.WaitCursor(@timeout, row, column, 3)
       end
 
       #
