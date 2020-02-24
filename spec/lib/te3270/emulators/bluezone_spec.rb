@@ -200,7 +200,7 @@ describe TE3270::Emulators::BlueZone do
         expect(bluezone_system).to receive(:WindowHandle).and_return(123)
         expect(Win32::Screenshot::Take).to receive(:of).with(:window, hwnd: 123).and_return(take)
         expect(take).to receive(:write).with('image.png')
-        expect(bluezone_window).to receive(:Visible=).once.with(true)
+        expect(bluezone_window).to receive(:Visible=).twice.with(true)
         expect(bluezone_window).to receive(:Visible=).twice.with(false)
         bluezone.connect do |emulator|
           emulator.visible = false

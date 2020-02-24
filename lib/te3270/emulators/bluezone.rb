@@ -81,10 +81,6 @@ module TE3270
 
         result = system.Connect('!', @connect_retry_timeout)
         raise BlueZoneError, "Error connecting to session: #{result}" if result != 0
-
-        # Once session is started, set pre-configured window_state and visibility.
-        self.window_state = @window_state
-        self.visible = @visible
       end
 
       #
@@ -143,7 +139,7 @@ module TE3270
           Win32::Screenshot::Take.of(:window, hwnd: hwnd).write(filename)
         end
 
-        self.visible = false if original_visibility
+        self.visible = false unless original_visibility
       end
 
       #
@@ -246,6 +242,11 @@ module TE3270
       def start_bluezone_system
         begin
           @system = WIN32OLE.new('BZWhll.WhllObj')
+
+          # Default window state.
+          # Once session is "connected" these will be applied unless overwritten.
+          self.window_state = @window_state
+          self.visible = @visible
         rescue Win32OleRuntimeError => exception
           $stderr.puts exception
           raise MissingOleRuntimeError, 'Unable to find BZWhll.WhllObj OLE runtime. Did you install the same BlueZone Desktop architecture as your Ruby runtime? ex: x86 vs 64 bit'
