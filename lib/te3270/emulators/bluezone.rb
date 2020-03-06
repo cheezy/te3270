@@ -55,9 +55,9 @@ module TE3270
       #
       # * connect_retry_timeout - number of seconds to retry connecting to a session. Defaults to +30+.
       # * max_column_length - number of columns in a terminal row. Defaults to +80+.
-      # * max_wait_time - number of milliseconds to wait before resuming script execution after sending keys from host
+      # * max_wait_time - number of milliseconds to wait before resuming script execution after sending keys from host. Defaults to +1000+.
       # * session_file - this value is required and should be the filename of the session.
-      # * session_id - numeric identifer for type of session to connect to. From BlueZone's docs: +1 for S1: 2 for S2; 3 for S3; etc.+ Defaults to +1+.
+      # * session_id - numeric identifier for type of session to connect to. From BlueZone's docs: +1 for S1: 2 for S2; 3 for S3; etc.+ Defaults to +1+.
       # * timeout - numeric number of seconds till system calls timeout. Defaults to +10+.
       # * visible - determines if the emulator is visible or not. If not set it will default to +true+.
       # * window_state - determines the state of the session window.  Valid values are +:minimized+,
