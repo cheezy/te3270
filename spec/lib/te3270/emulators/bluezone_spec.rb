@@ -117,16 +117,16 @@ describe TE3270::Emulators::BlueZone do
 
     it 'should put the value on the screen' do
       expect(bluezone_system).to receive(:WriteScreen).with('blah', 1, 2)
-      expect(bluezone_system).to receive(:WaitReady).with(10, 1000)
+      expect(bluezone_system).to receive(:WaitReady).with(10, 100)
       bluezone.connect
       bluezone.put_string('blah', 1, 2)
     end
 
     it 'should put the value on the screen with reduced wait delay if overridden' do
       expect(bluezone_system).to receive(:WriteScreen).with('blah', 1, 2)
-      expect(bluezone_system).to receive(:WaitReady).with(10, 100)
+      expect(bluezone_system).to receive(:WaitReady).with(10, 111)
       bluezone.connect
-      bluezone.max_wait_time = 100
+      bluezone.max_wait_time = 111
       bluezone.put_string('blah', 1, 2)
     end
   end
@@ -134,16 +134,16 @@ describe TE3270::Emulators::BlueZone do
   describe "interacting with the screen" do
     it 'should know how to send function keys' do
       expect(bluezone_system).to receive(:SendKey).with('<Clear>')
-      expect(bluezone_system).to receive(:WaitReady).with(10, 1000)
+      expect(bluezone_system).to receive(:WaitReady).with(10, 100)
       bluezone.connect
       bluezone.send_keys(TE3270.Clear)
     end
 
     it 'should know how to send function keys with reduced wait delay if overridden' do
       expect(bluezone_system).to receive(:SendKey).with('<Clear>')
-      expect(bluezone_system).to receive(:WaitReady).with(10, 100)
+      expect(bluezone_system).to receive(:WaitReady).with(10, 111)
       bluezone.connect
-      bluezone.max_wait_time = 100
+      bluezone.max_wait_time = 111
       bluezone.send_keys(TE3270.Clear)
     end
 
