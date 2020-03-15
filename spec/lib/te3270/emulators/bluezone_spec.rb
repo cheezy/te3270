@@ -98,6 +98,38 @@ describe TE3270::Emulators::BlueZone do
       end
       bluezone.disconnect
     end
+
+    it 'should set write_method to :full_string by default' do
+      # bluezone = TE3270::Emulators::BlueZone.new
+      expect(bluezone.instance_variable_get(:@write_method)).to eq(:full_string)
+    end
+
+    it 'should allow setting write_method to :char' do
+      bluezone.connect do |platform|
+        platform.write_method = :char
+      end
+      expect(bluezone.instance_variable_get(:@write_method)).to eq(:char)
+    end
+
+    it 'should raise InvalidWriteMethodError with invalid write_method' do
+      bluezone.instance_variable_set(:@write_method, nil)
+      expect { bluezone.connect }.to raise_error(TE3270::Emulators::InvalidWriteMethodError)
+
+      bluezone.instance_variable_set(:@write_method, :invalid)
+      expect { bluezone.connect }.to raise_error(TE3270::Emulators::InvalidWriteMethodError)
+    end
+
+    it 'should set write_errors_to_ignore to [6] by default' do
+      bluezone = TE3270::Emulators::BlueZone.new
+      expect(bluezone.instance_variable_get(:@write_errors_to_ignore)).to eq([6])
+    end
+
+    it 'should allow setting write_errors_to_ignore to array of integers' do
+      bluezone.connect do |platform|
+        platform.write_errors_to_ignore = [6, 7, 8]
+      end
+      expect(bluezone.instance_variable_get(:@write_errors_to_ignore)).to eq([6, 7, 8])
+    end
   end
 
   describe "interacting with text fields" do
@@ -115,19 +147,78 @@ describe TE3270::Emulators::BlueZone do
       expect(bluezone.get_string(20, 12, 10)).to eql 'blah'
     end
 
-    it 'should put the value on the screen' do
-      expect(bluezone_system).to receive(:WriteScreen).with('blah', 1, 2)
-      expect(bluezone_system).to receive(:WaitReady).with(10, 100)
-      bluezone.connect
-      bluezone.put_string('blah', 1, 2)
+    describe "full_string write method" do
+      before(:each) do
+        bluezone.connect do |platform|
+          platform.write_method = :full_string
+        end
+      end
+
+      it 'should put the value on the screen' do
+        expect(bluezone_system).to receive(:WriteScreen).with('blah', 1, 2)
+        expect(bluezone_system).to receive(:WaitReady).with(10, 100).once
+        bluezone.connect
+        bluezone.put_string('blah', 1, 2)
+      end
+
+      it 'should put the value on the screen with reduced wait delay if overridden' do
+        expect(bluezone_system).to receive(:WriteScreen).with('blah', 1, 2)
+        expect(bluezone_system).to receive(:WaitReady).with(10, 111).once
+        bluezone.connect
+        bluezone.max_wait_time = 111
+        bluezone.put_string('blah', 1, 2)
+      end
     end
 
-    it 'should put the value on the screen with reduced wait delay if overridden' do
-      expect(bluezone_system).to receive(:WriteScreen).with('blah', 1, 2)
-      expect(bluezone_system).to receive(:WaitReady).with(10, 111)
-      bluezone.connect
-      bluezone.max_wait_time = 111
-      bluezone.put_string('blah', 1, 2)
+    describe "char write method" do
+      before(:each) do
+        bluezone.connect do |platform|
+          platform.write_method = :char
+        end
+      end
+
+      it 'should put the value on the screen' do
+        expect(bluezone_system).to receive(:WriteScreen).with('b', 1, 2).once.and_return(0)
+        expect(bluezone_system).to receive(:WriteScreen).with('l', 1, 3).once.and_return(0)
+        expect(bluezone_system).to receive(:WriteScreen).with('a', 1, 4).once.and_return(0)
+        expect(bluezone_system).to receive(:WriteScreen).with('h', 1, 5).once.and_return(0)
+        expect(bluezone_system).to receive(:WaitReady).with(10, 100).exactly(4).times
+        bluezone.connect
+        bluezone.put_string('blah', 1, 2)
+      end
+
+      it 'should put the value on the screen with reduced wait delay if overridden' do
+        expect(bluezone_system).to receive(:WriteScreen).with('b', 1, 2).once.and_return(0)
+        expect(bluezone_system).to receive(:WriteScreen).with('l', 1, 3).once.and_return(0)
+        expect(bluezone_system).to receive(:WriteScreen).with('a', 1, 4).once.and_return(0)
+        expect(bluezone_system).to receive(:WriteScreen).with('h', 1, 5).once.and_return(0)
+        expect(bluezone_system).to receive(:WaitReady).with(10, 111).exactly(4).times
+        bluezone.connect
+        bluezone.max_wait_time = 111
+        bluezone.put_string('blah', 1, 2)
+      end
+
+      it 'should put the full string on the screen if allowed error codes returned' do
+        expect(bluezone_system).to receive(:WriteScreen).with('b', 1, 2).once.and_return(0)
+        expect(bluezone_system).to receive(:WriteScreen).with('l', 1, 3).once.and_return(6)
+        expect(bluezone_system).to receive(:WriteScreen).with('a', 1, 4).once.and_return(0)
+        expect(bluezone_system).to receive(:WriteScreen).with('h', 1, 5).once.and_return(6)
+        expect(bluezone_system).to receive(:WaitReady).with(10, 100).exactly(4).times
+        bluezone.connect
+        bluezone.put_string('blah', 1, 2)
+      end
+
+      it 'should stop adding characters once an invalid error code is returned' do
+        expect(bluezone_system).to receive(:WriteScreen).with('b', 1, 2).once.and_return(4)
+        expect(bluezone_system).to receive(:WriteScreen).with('l', 1, 3).once.and_return(5)
+        expect(bluezone_system).to receive(:WriteScreen).with('a', 1, 4).once.and_return(10)
+        expect(bluezone_system).not_to receive(:WriteScreen).with('h', 1, 5)
+        expect(bluezone_system).to receive(:WaitReady).with(10, 100).exactly(2).times
+        bluezone.connect do |platform|
+          platform.write_errors_to_ignore = [4, 5, 6]
+        end
+        bluezone.put_string('blah', 1, 2)
+      end
     end
   end
 

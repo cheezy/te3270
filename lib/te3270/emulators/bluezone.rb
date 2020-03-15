@@ -3,6 +3,7 @@ module TE3270
     class BlueZoneError < StandardError; end
     class InvalidVisibleStateError < BlueZoneError; end
     class InvalidWindowStateError < BlueZoneError; end
+    class InvalidWriteMethodError < BlueZoneError; end
     class SessionFileMissingError < BlueZoneError; end
     class Win32OleRuntimeError < BlueZoneError; end
 
@@ -17,7 +18,9 @@ module TE3270
                   :max_wait_time,
                   :session_id,
                   :session_file,
-                  :timeout
+                  :timeout,
+                  :write_errors_to_ignore,
+                  :write_method
 
       #
       # Initialize the emulator with defaults. This also loads libraries used
@@ -32,6 +35,8 @@ module TE3270
         @timeout = 10
         @visible = true
         @window_state = :normal
+        @write_errors_to_ignore = [6]
+        @write_method = :full_string
 
         if jruby?
           require 'jruby-win32ole'
@@ -62,6 +67,9 @@ module TE3270
       # * visible - determines if the emulator is visible or not. If not set it will default to +true+.
       # * window_state - determines the state of the session window.  Valid values are +:minimized+,
       #   +:normal+, and +:maximized+.  If not set it will default to +:normal+.
+      # * write_errors_to_ignore - array of error codes to ignore during "char" write method. Defaults to +[6]+.
+      # * write_method - write strings to the terminal all at once or one character at a time  Valid values are +:full_string+,
+      #   and +:char+.  Default is +:full_string+.
       #
       # @example Example calling screen object constructor with a block
       #   screen_object = MyScreenObject.new(:bluezone)
@@ -74,6 +82,7 @@ module TE3270
       def connect
         start_bluezone_system
         yield self if block_given?
+        raise InvalidWriteMethodError unless [:char, :full_string].include?(@write_method)
         raise SessionFileMissingError if @session_file.nil?
 
         result = system.OpenSession(SESSION_TYPE[:Mainframe], @session_id, @session_file, @timeout, 1)
@@ -110,8 +119,22 @@ module TE3270
       # @param [Fixnum] column the y coordinate of the location on the screen.
       #
       def put_string(str, row, column)
-        system.WriteScreen(str, row, column)
-        system.WaitReady(@timeout, @max_wait_time)
+        if @write_method == :full_string
+          system.WriteScreen(str, row, column)
+          system.WaitReady(@timeout, @max_wait_time)
+        elsif @write_method == :char
+          str.chars.each_with_index do |char, index|
+            position = ((row - 1) * @max_column_length) + column + index
+            position_row = (position / @max_column_length.to_f).ceil
+            position_col = position % @max_column_length
+            position_col = position_col == 0 ? @max_column_length : position_col
+            result = system.WriteScreen(char, position_row, position_col)
+            break unless ([0] + @write_errors_to_ignore).include?(result)
+            system.WaitReady(@timeout, @max_wait_time)
+          end
+        else
+          raise InvalidWriteMethodError, @write_method
+        end
       end
 
       #
