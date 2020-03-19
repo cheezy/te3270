@@ -1,11 +1,13 @@
 # TE3270
 
-This gem can be used to drive a 3270 terminal emulator.  You have to have a supported emulator installed on the
-machines on which you use the gem.  Currently the supported emulators are
+This gem can be used to drive a 3270 terminal emulator. You have to have a supported emulator installed on the
+machines on which you use the gem. Currently the supported emulators are
 [EXTRA! X-treme](http://www.attachmate.com/Products/Terminal+Emulation/Extra/xtreme/extra-x-treme.htm) by
-Attachmate, [Quick3270](http://www.dn-computing.com/Quick3270.htm) by DN-Computing, [Virtel Web Access](http://www.virtelweb.com/solutions/3270-terminal-emulation.html),
+Attachmate, [Quick3270](http://www.dn-computing.com/Quick3270.htm) by DN-Computing,
+[Rocket BlueZone](https://www.rocketsoftware.com/products/rocket-bluezonepassport-terminal-emulator/rocket-bluezone-terminal-emulation),
+[Virtel Web Access](http://www.virtelweb.com/solutions/3270-terminal-emulation.html),
 and [X3270](http://x3270.bgp.nu/).
-The first three are commercial products and need to be purchased.
+The first four are commercial products and need to be purchased.
 X3270 is open source. Support for other
 emulators will be added as time permits.
 
@@ -29,7 +31,7 @@ Or install it yourself as:
 
 ## Usage
 
-You can create classes that are similar to page-object classes.  In these classes you can define
+You can create classes that are similar to page-object classes. In these classes you can define
 the various fields that you wish to interact with on the screen.
 
     class MainframeScreen
@@ -90,9 +92,9 @@ or you can use the version of `on` that takes a block like this:
       screen.password = 'the_password'
     end
 
-There is also a way to pass in a `Hash` and have it populate an entire screen.  Just simply
+There is also a way to pass in a `Hash` and have it populate an entire screen. Just simply
 ensure the key for an entry in the `Hash` matches the name you gave a text field and it will
-find and set the value.  This allows the gem to easily work with the DataMagic gem.
+find and set the value. This allows the gem to easily work with the DataMagic gem.
 
     # given this Hash
     my_data = { userid: 'the_id', password: 'the_password' }
@@ -100,6 +102,19 @@ find and set the value.  This allows the gem to easily work with the DataMagic g
     # you can simply call this method
     on(MainframeScreen).populate_screen_with my_data
 
+## Troubleshooting
+
+If you plan to use the BlueZone emulator support, make sure the version of BlueZone
+that you install matches the architecture of the Ruby version you are using.
+
+_ex: x86 for both or 64 bit for both_
+
+Also, if you intend to take screenshots with BlueZone, Extra, or Quick emulators
+you will need to use the x86 version of Ruby as the 64 bit version of
+[win32screenshot](https://rubygems.org/gems/win32screenshot/) depends on
+[rautomation](https://rubygems.org/gems/rautomation/) which
+[does not support 64 bit installs](https://github.com/jarmo/RAutomation/issues/68)
+at this time.
 
 ## Contributing
 

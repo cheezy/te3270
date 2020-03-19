@@ -1,3 +1,11 @@
+=== Upcoming
+* Enhancements
+  * Added support for BlueZone driver (Thanks Jonathan Knapp)
+  * Add troubleshooting info to README
+* Fixes
+  * No longer limit bundler version in dev dependency
+  * Fix test that only runs on windows
+
 === Version 0.8.1 / 2017-03-06
 * Fixes
   * Fixed get_string method for Virtel (Thanks David West)

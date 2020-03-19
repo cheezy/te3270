@@ -7,6 +7,20 @@ if Gem.win_platform?
   require 'win32/screenshot'
 end
 
+def bluezone_system
+  @bluezone_system ||= double('system')
+  allow(@bluezone_system).to receive(:Connect).and_return(0)
+  allow(@bluezone_system).to receive(:OpenSession).and_return(0)
+  allow(@bluezone_system).to receive(:Window).and_return(bluezone_window)
+  allow(@bluezone_system).to receive(:WindowState=)
+  @bluezone_system
+end
+
+def bluezone_window
+  @bluezone_window ||= double('window')
+  allow(@bluezone_window).to receive(:Visible=)
+  @bluezone_window
+end
 
 def extra_system
   @extra_system ||= double('system')

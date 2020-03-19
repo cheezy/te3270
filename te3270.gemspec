@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'watir', '~> 6.0'
   spec.add_dependency 'win32screenshot' if Gem.win_platform?
 
-  spec.add_development_dependency "bundler", "~> 1.3"
+  spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
 end

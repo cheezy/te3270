@@ -84,13 +84,13 @@ describe TE3270 do
     if Gem.win_platform?
       it 'should accept a block when creating an emulator' do
         expect(WIN32OLE).to receive(:new).and_return(extra_system)
-        expect(extra_session).to receive(:Open).with('blah.edp').and_return(extra_session)
+        expect(extra_system.Sessions).to receive(:Open).with('blah.edp').and_return(extra_session)
         TE3270.emulator_for :extra do |emulator|
           emulator.session_file = 'blah.edp'
         end
       end
     end
-    
+
     it 'should allow one to disconnect using the module' do
       expect(platform).to receive(:disconnect)
       TE3270.disconnect(platform)
