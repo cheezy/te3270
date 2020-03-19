@@ -100,7 +100,6 @@ describe TE3270::Emulators::BlueZone do
     end
 
     it 'should set write_method to :full_string by default' do
-      # bluezone = TE3270::Emulators::BlueZone.new
       expect(bluezone.instance_variable_get(:@write_method)).to eq(:full_string)
     end
 
@@ -119,9 +118,9 @@ describe TE3270::Emulators::BlueZone do
       expect { bluezone.connect }.to raise_error(TE3270::Emulators::InvalidWriteMethodError)
     end
 
-    it 'should set write_errors_to_ignore to [6] by default' do
+    it 'should set write_errors_to_ignore to [5, 6] by default' do
       bluezone = TE3270::Emulators::BlueZone.new
-      expect(bluezone.instance_variable_get(:@write_errors_to_ignore)).to eq([6])
+      expect(bluezone.instance_variable_get(:@write_errors_to_ignore)).to eq([5, 6])
     end
 
     it 'should allow setting write_errors_to_ignore to array of integers' do

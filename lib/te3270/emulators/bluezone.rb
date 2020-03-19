@@ -35,7 +35,7 @@ module TE3270
         @timeout = 10
         @visible = true
         @window_state = :normal
-        @write_errors_to_ignore = [6]
+        @write_errors_to_ignore = [5, 6]
         @write_method = :full_string
 
         if jruby?
@@ -67,7 +67,7 @@ module TE3270
       # * visible - determines if the emulator is visible or not. If not set it will default to +true+.
       # * window_state - determines the state of the session window.  Valid values are +:minimized+,
       #   +:normal+, and +:maximized+.  If not set it will default to +:normal+.
-      # * write_errors_to_ignore - array of error codes to ignore during "char" write method. Defaults to +[6]+.
+      # * write_errors_to_ignore - array of error codes to ignore during "char" write method. Defaults to +[5, 6]+.
       # * write_method - write strings to the terminal all at once or one character at a time  Valid values are +:full_string+,
       #   and +:char+.  Default is +:full_string+.
       #
