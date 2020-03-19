@@ -168,6 +168,13 @@ describe TE3270::Emulators::BlueZone do
         bluezone.max_wait_time = 111
         bluezone.put_string('blah', 1, 2)
       end
+
+      it 'should cast the value to a string before printing to the screen' do
+        expect(bluezone_system).to receive(:WriteScreen).with('1234', 1, 2)
+        expect(bluezone_system).to receive(:WaitReady).with(10, 100).once
+        bluezone.connect
+        bluezone.put_string(1234, 1, 2)
+      end
     end
 
     describe "char write method" do
@@ -218,6 +225,16 @@ describe TE3270::Emulators::BlueZone do
           platform.write_errors_to_ignore = [4, 5, 6]
         end
         bluezone.put_string('blah', 1, 2)
+      end
+
+      it 'should cast the value to a string before printing to the screen' do
+        expect(bluezone_system).to receive(:WriteScreen).with('1', 1, 2).once.and_return(0)
+        expect(bluezone_system).to receive(:WriteScreen).with('2', 1, 3).once.and_return(0)
+        expect(bluezone_system).to receive(:WriteScreen).with('3', 1, 4).once.and_return(0)
+        expect(bluezone_system).to receive(:WriteScreen).with('4', 1, 5).once.and_return(0)
+        expect(bluezone_system).to receive(:WaitReady).with(10, 100).exactly(4).times
+        bluezone.connect
+        bluezone.put_string(1234, 1, 2)
       end
     end
   end

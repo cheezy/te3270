@@ -114,16 +114,18 @@ module TE3270
       #
       # Puts string at the coordinates specified.
       #
-      # @param [String] str the string to set
+      # @param [String|Fixnum] input the value to set; value is cast to string
       # @param [Fixnum] row the x coordinate of the location on the screen.
       # @param [Fixnum] column the y coordinate of the location on the screen.
       #
-      def put_string(str, row, column)
+      def put_string(input, row, column)
+        input_as_string = input.to_s
+
         if @write_method == :full_string
-          system.WriteScreen(str, row, column)
+          system.WriteScreen(input_as_string, row, column)
           system.WaitReady(@timeout, @max_wait_time)
         elsif @write_method == :char
-          str.chars.each_with_index do |char, index|
+          input_as_string.chars.each_with_index do |char, index|
             position = ((row - 1) * @max_column_length) + column + index
             position_row = (position / @max_column_length.to_f).ceil
             position_col = position % @max_column_length
