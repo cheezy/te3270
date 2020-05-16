@@ -179,11 +179,46 @@ describe TE3270::Emulators::X3270 do
       x3270.screenshot("image.txt")
     end
 
-    it 'should get all text from screen' do
+    it 'should get all text from model 2 screen' do
       expect(@x3270_io).to receive(:print).with("ascii(0,0,1920)\n")
       expect(@x3270_io).to receive(:gets).and_return('data: string','goo','ok')
       x3270.connect
       expect(x3270.text).to eql 'string'
     end
+
+    it 'should get all text from model 3 screen' do
+      expect(@x3270_io).to receive(:print).with("ascii(0,0,2560)\n")
+      expect(@x3270_io).to receive(:gets).and_return('data: string','goo','ok')
+      x3270.connect do |emulator|
+        emulator.model = 3
+      end
+      expect(x3270.text).to eql 'string'
+    end
+
+    it 'should get all text from model 4 screen' do
+      expect(@x3270_io).to receive(:print).with("ascii(0,0,3440)\n")
+      expect(@x3270_io).to receive(:gets).and_return('data: string','goo','ok')
+      x3270.connect do |emulator|
+        emulator.model = 4
+      end
+      expect(x3270.text).to eql 'string'
+    end
+
+    it 'should get all text from model 5 screen' do
+      expect(@x3270_io).to receive(:print).with("ascii(0,0,3564)\n")
+      expect(@x3270_io).to receive(:gets).and_return('data: string','goo','ok')
+      x3270.connect do |emulator|
+        emulator.model = 5
+      end
+      expect(x3270.text).to eql 'string'
+    end
+
+    it 'should display an error when an unsupported display model is set' do
+      expect { x3270.connect do |emulator|
+        emulator.model = -1
+      end }.to raise_error('The model should be one of 2, 3, 4 or 5.')
+    end
+
+
   end
 end
